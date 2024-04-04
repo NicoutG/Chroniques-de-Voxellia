@@ -14,6 +14,8 @@ public class Niveau {
             blocs[0]=new BlocType(); // le bloc de vide par défaut
             for (int i=1;i<exps.length;i++) {
                 blocs[i]=new BlocType();
+                while (exps[i].contains("  ")) // suppression des espaces en trop
+                    exps[i]=exps[i].replace("  "," ");
                 if (!blocs[i].charger(exps[i])) {
                     blocs=null;
                     return false;
