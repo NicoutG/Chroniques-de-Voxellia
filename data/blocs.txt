@@ -1,3 +1,0 @@
-Nom Collision Mouvant Mortel Matiere
-pierre 1 0 0 p
-metal 1 0 0 m

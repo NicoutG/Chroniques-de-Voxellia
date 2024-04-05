@@ -1,0 +1,4 @@
+Nom Type Mouvant Mortel Matiere
+pierre 0 0 0 p
+metal 0 0 0 m
+levier 2 0 0 m
