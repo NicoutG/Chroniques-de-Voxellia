@@ -97,14 +97,26 @@ public class Niveau {
                                 System.out.println("Le bloc "+indice+" n est pas definie");
                                 return false;
                             }
-                            terrain[x][y][z]=new Bloc (blocs[indice]); // recuperation du blocType
-                            if (blocs[indice].getType()>0) { // Si c'est un bloc de type spécial on a besoin de son etat et idGroupe
-                                if (bloc.length!=3) {
-                                    System.out.println("Les blocs speciaux doivent avoir leur etat et leur idGroupe");
-                                    return false;
-                                }
-                                terrain[x][y][z].setEtat(bloc[1].equals("1"));
-                                terrain[x][y][z].setIdGroupe(Integer.parseInt(bloc[2]));
+                            switch (blocs[indice].getType()) {
+                                case 1: {
+                                    terrain[x][y][z]=new BlocActivation (blocs[indice]);
+                                    if (bloc.length!=3) {
+                                        System.out.println("Les blocs speciaux doivent avoir leur etat et leur idGroupe");
+                                        return false;
+                                    }
+                                    ((BlocActivation)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocActivation)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                }break;
+                                case 2: {
+                                    terrain[x][y][z]=new BlocActivable (blocs[indice]);
+                                    if (bloc.length!=3) {
+                                        System.out.println("Les blocs speciaux doivent avoir leur etat et leur idGroupe");
+                                        return false;
+                                    }
+                                    ((BlocActivable)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocActivable)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                }break;
+                                default: terrain[x][y][z]=new Bloc (blocs[indice]);
                             }
                         }
                     }

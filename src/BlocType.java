@@ -2,7 +2,7 @@ public class BlocType {
     private String nom="default"; // le nom du bloc
     private boolean mouvant=false; // si le bloc peut être déplacé
     private boolean mortel=false; // si le bloc est mortel au touché
-    private char matiere='d'; // définie la matière du bloc
+    private char matiere='d'; // définie la matière du bloc f:feu, g:glace, b:bois, m:metal, p:pierre
     private int type=0; // 0 pour un type normal, 1 pour un bloc d'activation, 2 pour un bloc activable
 
     public boolean charger (String exp) {

@@ -1,6 +1,6 @@
 4 4 2
 v v v v
-v v v v
+v 0 v v
 v v v v
 v 2/1/78 v v
 v v 2/0/42 v
