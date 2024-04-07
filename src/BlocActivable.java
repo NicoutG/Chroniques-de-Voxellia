@@ -1,4 +1,4 @@
-public class BlocActivable extends Bloc {
+public abstract class BlocActivable extends Bloc {
     private boolean etat=false;
     private int idGroupe=0;
 
@@ -21,6 +21,8 @@ public class BlocActivable extends Bloc {
     public int getIdGroupe () {
         return idGroupe;
     }
+
+    public abstract void activation ();
 
     @Override
     public void afficher () {
