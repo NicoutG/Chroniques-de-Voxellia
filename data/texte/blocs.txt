@@ -1,5 +1,5 @@
-Nom Type Mouvant Mortel Matiere
-pierre 0 0 0 p
-metal 0 0 0 m
-levier 1 0 0 m
-pierreMouvante 0 1 0 p
+Id Nom Type Mortel Matiere
+0 pierre 0 0 p
+1 metal 0 0 m
+2 levier 2 0 m
+3 pierreMouvante 1 0 p
