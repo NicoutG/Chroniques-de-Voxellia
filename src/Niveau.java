@@ -81,7 +81,7 @@ public class Niveau {
             // chargement des blocs du terrain
             for (int z=0;z<taillez;z++)
                 for (int y=0;y<tailley;y++) {
-                    int numLine=1+z*tailley+y;
+                    int numLine=2+z*(tailley+1)+y;
                     line=exps[numLine].split(" ");
                     if (line.length!=taillex) {
                         System.out.println("Le fichier doit avoir "+taillez+" blocs par ligne");
@@ -99,22 +99,22 @@ public class Niveau {
                             }
                             switch (blocs[indice].getType()) {
                                 case 1: {
-                                    terrain[x][y][z]=new BlocActivation (blocs[indice]);
+                                    terrain[x][y][z]=new BlocLevier (blocs[indice]);
                                     if (bloc.length!=3) {
-                                        System.out.println("Les blocs speciaux doivent avoir leur etat et leur idGroupe");
+                                        System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
                                     }
-                                    ((BlocActivation)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
-                                    ((BlocActivation)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                    ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
                                 case 2: {
-                                    terrain[x][y][z]=new BlocActivable (blocs[indice]);
+                                    terrain[x][y][z]=new BlocPlaque (blocs[indice]);
                                     if (bloc.length!=3) {
-                                        System.out.println("Les blocs speciaux doivent avoir leur etat et leur idGroupe");
+                                        System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
                                     }
-                                    ((BlocActivable)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
-                                    ((BlocActivable)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                    ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
                                 default: terrain[x][y][z]=new Bloc (blocs[indice]);
                             }
