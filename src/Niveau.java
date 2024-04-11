@@ -32,12 +32,18 @@ public class Niveau {
                     System.out.println("Impossible de charger le bloc à la ligne "+i);
                     return false;
                 }
-                if (blocs[nouvBloc.getId()]!=null) {
+                int id=nouvBloc.getId();
+                if (id<0 || blocs.length<=id) {
                     blocs=null;
-                    System.out.println("L'id "+nouvBloc.getId()+" est présent en double");
+                    System.out.println("L'id "+id+" doit etre entre 0 et "+blocs.length);
                     return false;
                 }
-                blocs[nouvBloc.getId()]=nouvBloc;
+                if (blocs[id]!=null) {
+                    blocs=null;
+                    System.out.println("L'id "+id+" est présent en double");
+                    return false;
+                }
+                blocs[id]=nouvBloc;
             }
             return true;
         }
@@ -47,6 +53,10 @@ public class Niveau {
     }
 
     public boolean chargerTerrain (String fichier) {
+        if (blocs==null || blocs.length<1) {
+            System.out.println("Aucun bloc chargé");
+            return false;
+        }
         try {
             String exp=new String(Files.readAllBytes(Paths.get(fichier)));
             String [] exps=exp.split("\r\n");
