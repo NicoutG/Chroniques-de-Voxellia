@@ -17,7 +17,7 @@ public class BlocType {
         id=Integer.parseInt(exps[0]);
         nom=exps[1];
         type=Integer.parseInt(exps[2]);
-        mortel=exps[3].equals("1");
+        mortel=exps[3].equals("t");
         matiere=exps[4].charAt(0);
         return true;
     }

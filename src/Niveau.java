@@ -125,7 +125,7 @@ public class Niveau {
                                         System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
                                     }
-                                    ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
                                     ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
                                 case 3: {
@@ -134,7 +134,7 @@ public class Niveau {
                                         System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
                                     }
-                                    ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("1"));
+                                    ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
                                     ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
                                 default: terrain[x][y][z]=new Bloc (blocs[indice]);
