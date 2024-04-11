@@ -1,7 +1,8 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.Observable;
 
-public class Niveau {
+public class Niveau extends Observable {
     private BlocType [] blocs=null; // les différents types de blocs
     private Bloc [][][] terrain=null;
     private int taillex=0;
@@ -160,7 +161,10 @@ public class Niveau {
     }
 
     public boolean deplacerJoueur (int depx, int depy, int depz) {
-        return joueur.deplacer(terrain, depx, depy, depz);
+        boolean res=joueur.deplacer(terrain, depx, depy, depz);
+        setChanged();
+        notifyObservers();
+        return res;
     }
 
     public void afficherBlocs () {
@@ -213,6 +217,16 @@ public class Niveau {
 
     public int getTaillez () {
         return taillez;
+    }
+
+    public Bloc getBloc (int x, int y, int z) {
+        if (x<0 || taillex<=x || y<0 || tailley<=y || z<0 || taillez<=z)
+            return null;
+        return terrain[x][y][z];
+    }
+
+    public Joueur getJoueur () {
+        return joueur;
     }
     
 }
