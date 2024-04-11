@@ -202,5 +202,17 @@ public class Niveau {
             }
         }
     }
+
+    public int getTaillex () {
+        return taillex;
+    }
+
+    public int getTailley () {
+        return tailley;
+    }
+
+    public int getTaillez () {
+        return taillez;
+    }
     
 }
