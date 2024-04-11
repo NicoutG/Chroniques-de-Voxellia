@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
 
 public class MF extends JFrame implements Observer{
     Niveau niveau;
@@ -46,4 +47,8 @@ public class MF extends JFrame implements Observer{
         requestFocus();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO: Implement the update method
+    }
 }
