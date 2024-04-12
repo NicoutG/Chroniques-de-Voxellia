@@ -84,21 +84,9 @@ public class Niveau extends Observable {
                 System.out.println("Les dimensions du terrain doivent etre positive");
                 return false;
             }
-            line=exps[1].split(" ");
-            if (line.length!=3) {
-                System.out.println("La deuxième ligne doit posséder les 3 coordonnées du joueur");
-                return false;
-            }
-            int posx=Integer.parseInt(line[0]);
-            int posy=Integer.parseInt(line[1]);
-            int posz=Integer.parseInt(line[2]);
-            if (posx<0 || taillex<=posx || posy<0 || tailley<=posy || posz<0 || taillez<=posz) {
-                System.out.println("Les coordonnées du joueur doivent appartenir au terrain");
-                return false;
-            }
-            joueur.setPos(posx,posy,posz);
+            joueur.setPos(0,0,0);
             if (exps.length<taillez*tailley+1) {
-                System.out.println("Le fichier doit avoir "+(taillez*tailley+2)+" lignes");
+                System.out.println("Le fichier doit avoir "+(taillez*tailley+1)+" lignes");
                 return false;
             }
             terrain=new Bloc [taillex][tailley][taillez];
@@ -106,7 +94,7 @@ public class Niveau extends Observable {
             // chargement des blocs du terrain
             for (int z=0;z<taillez;z++)
                 for (int y=0;y<tailley;y++) {
-                    int numLine=3+z*(tailley+1)+y;
+                    int numLine=2+z*(tailley+1)+y;
                     line=exps[numLine].split(" ");
                     if (line.length!=taillex) {
                         System.out.println("Le fichier doit avoir "+taillez+" blocs par ligne");
@@ -117,38 +105,44 @@ public class Niveau extends Observable {
                         if (bloc[0].equals(".")) // Si c'est un bloc de vide
                             terrain[x][y][z]=null;
                         else {
-                            int indice=Integer.parseInt(bloc[0]);
-                            if (indice<0 || indice>blocs.length) {
-                                System.out.println("Le bloc "+indice+" n est pas definie");
-                                return false;
+                            if (bloc[0].equals("j")) {
+                                terrain[x][y][z]=null;
+                                joueur.setPos(x, y, z);
                             }
-                            switch (blocs[indice].getType()) {
-                                case 1: {
-                                    terrain[x][y][z]=new BlocMouvant (indice);
-                                    if (bloc.length!=1) {
-                                        System.out.println("Les blocs mouvants n'ont pas de paramètres supplémentaires");
-                                        return false;
-                                    }
-                                }break;
-                                case 2: {
-                                    terrain[x][y][z]=new BlocLevier (indice);
-                                    if (bloc.length!=3) {
-                                        System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
-                                        return false;
-                                    }
-                                    ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
-                                    ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
-                                }break;
-                                case 3: {
-                                    terrain[x][y][z]=new BlocPlaque (indice);
-                                    if (bloc.length!=3) {
-                                        System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
-                                        return false;
-                                    }
-                                    ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
-                                    ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
-                                }break;
-                                default: terrain[x][y][z]=new Bloc (indice);
+                            else {
+                                int indice=Integer.parseInt(bloc[0]);
+                                if (indice<0 || indice>blocs.length) {
+                                    System.out.println("Le bloc "+indice+" n est pas definie");
+                                    return false;
+                                }
+                                switch (blocs[indice].getType()) {
+                                    case 1: {
+                                        terrain[x][y][z]=new BlocMouvant (indice);
+                                        if (bloc.length!=1) {
+                                            System.out.println("Les blocs mouvants n'ont pas de paramètres supplémentaires");
+                                            return false;
+                                        }
+                                    }break;
+                                    case 2: {
+                                        terrain[x][y][z]=new BlocLevier (indice);
+                                        if (bloc.length!=3) {
+                                            System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
+                                            return false;
+                                        }
+                                        ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
+                                        ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                    }break;
+                                    case 3: {
+                                        terrain[x][y][z]=new BlocPlaque (indice);
+                                        if (bloc.length!=3) {
+                                            System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
+                                            return false;
+                                        }
+                                        ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
+                                        ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
+                                    }break;
+                                    default: terrain[x][y][z]=new Bloc (indice);
+                                }
                             }
                         }
                     }
