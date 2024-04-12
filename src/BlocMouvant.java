@@ -1,7 +1,28 @@
 public class BlocMouvant extends Bloc {
+    private int idPlaque=0; // l'identifiant relatif à une plaque d'activation
 
     public BlocMouvant (int id) {
         super(id);
+    }
+
+    @Override
+    public boolean setParametres (String params) {
+        String [] paramList=params.split("/");
+        if (paramList.length>2)
+            return false;
+        if (paramList.length==2)
+            idPlaque=Integer.parseInt(paramList[1]);
+        else
+            idPlaque=-1;
+        return true;
+    }
+
+    public int getIdPlaque () {
+        return idPlaque;
+    }
+
+    public void setIdPlaque (int id) {
+        idPlaque=id;
     }
 
     @Override
@@ -53,5 +74,11 @@ public class BlocMouvant extends Bloc {
                 terrain[x][y][z-1].miseAjour(terrain,blocs,x,y,z-1,joueur);
         }
         super.miseAjour(terrain,blocs,x,y,z,joueur);
+    }
+
+    @Override
+    public void afficher (BlocType [] blocs) {
+        super.afficher(blocs);
+        System.out.println("idPlaque : "+idPlaque);
     }
 }

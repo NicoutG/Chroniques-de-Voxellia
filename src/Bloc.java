@@ -5,6 +5,10 @@ public class Bloc {
         idBlocType=id;
     }
 
+    public boolean setParametres (String params) {
+        return true;
+    }
+
     public int getIdBlocType () {
         return idBlocType;
     }

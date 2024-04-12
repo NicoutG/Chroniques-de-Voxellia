@@ -116,32 +116,14 @@ public class Niveau extends Observable {
                                     return false;
                                 }
                                 switch (blocs[indice].getType()) {
-                                    case 1: {
-                                        terrain[x][y][z]=new BlocMouvant (indice);
-                                        if (bloc.length!=1) {
-                                            System.out.println("Les blocs mouvants n'ont pas de paramètres supplémentaires");
-                                            return false;
-                                        }
-                                    }break;
-                                    case 2: {
-                                        terrain[x][y][z]=new BlocLevier (indice);
-                                        if (bloc.length!=3) {
-                                            System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
-                                            return false;
-                                        }
-                                        ((BlocLevier)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
-                                        ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
-                                    }break;
-                                    case 3: {
-                                        terrain[x][y][z]=new BlocPlaque (indice);
-                                        if (bloc.length!=3) {
-                                            System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
-                                            return false;
-                                        }
-                                        ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
-                                        ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
-                                    }break;
+                                    case 1: terrain[x][y][z]=new BlocMouvant (indice);break;
+                                    case 2: terrain[x][y][z]=new BlocLevier (indice);break;
+                                    case 3: terrain[x][y][z]=new BlocPlaque (indice);break;
                                     default: terrain[x][y][z]=new Bloc (indice);
+                                }
+                                if (!terrain[x][y][z].setParametres(line[x])) {
+                                    System.out.println("Parametres invalides pour le bloc x:"+x+" y:"+y+" z:"+z);
+                                    return false;
                                 }
                             }
                         }
