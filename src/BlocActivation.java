@@ -2,8 +2,8 @@ public class BlocActivation extends Bloc {
     private boolean etat=false;
     private int idGroupe=0;
 
-    public BlocActivation (BlocType bloc) {
-        super(bloc);
+    public BlocActivation (int id) {
+        super(id);
     }
 
     public void setEtat (boolean e) {
@@ -22,7 +22,7 @@ public class BlocActivation extends Bloc {
         return idGroupe;
     }
 
-    protected void activer (Bloc [][][] terrain) {
+    protected void activer (Bloc [][][] terrain, BlocType [] blocs) {
         for (int x=0;x<terrain.length;x++)
             for (int y=0;y<terrain[x].length;y++)
                 for (int z=0;z<terrain[x][y].length;z++)
@@ -32,8 +32,8 @@ public class BlocActivation extends Bloc {
     }
 
     @Override
-    public void afficher () {
-        super.afficher();
+    public void afficher (BlocType [] blocs) {
+        super.afficher(blocs);
         System.out.println("Etat : "+etat);
         System.out.println("IdGroupe : "+idGroupe);
     }

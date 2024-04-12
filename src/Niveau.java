@@ -124,14 +124,14 @@ public class Niveau extends Observable {
                             }
                             switch (blocs[indice].getType()) {
                                 case 1: {
-                                    terrain[x][y][z]=new BlocMouvant (blocs[indice]);
+                                    terrain[x][y][z]=new BlocMouvant (indice);
                                     if (bloc.length!=1) {
                                         System.out.println("Les blocs mouvants n'ont pas de paramètres supplémentaires");
                                         return false;
                                     }
                                 }break;
                                 case 2: {
-                                    terrain[x][y][z]=new BlocLevier (blocs[indice]);
+                                    terrain[x][y][z]=new BlocLevier (indice);
                                     if (bloc.length!=3) {
                                         System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
@@ -140,7 +140,7 @@ public class Niveau extends Observable {
                                     ((BlocLevier)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
                                 case 3: {
-                                    terrain[x][y][z]=new BlocPlaque (blocs[indice]);
+                                    terrain[x][y][z]=new BlocPlaque (indice);
                                     if (bloc.length!=3) {
                                         System.out.println("Les blocs d'activations doivent avoir leur etat et leur idGroupe");
                                         return false;
@@ -148,7 +148,7 @@ public class Niveau extends Observable {
                                     ((BlocPlaque)terrain[x][y][z]).setEtat(bloc[1].equals("t"));
                                     ((BlocPlaque)terrain[x][y][z]).setIdGroupe(Integer.parseInt(bloc[2]));
                                 }break;
-                                default: terrain[x][y][z]=new Bloc (blocs[indice]);
+                                default: terrain[x][y][z]=new Bloc (indice);
                             }
                         }
                     }
@@ -161,7 +161,7 @@ public class Niveau extends Observable {
     }
 
     public boolean deplacerJoueur (int depx, int depy, int depz) {
-        boolean res=joueur.deplacer(terrain, depx, depy, depz);
+        boolean res=joueur.deplacer(terrain,blocs, depx, depy, depz);
         setChanged();
         notifyObservers();
         return res;
@@ -184,7 +184,7 @@ public class Niveau extends Observable {
                 for (int x=0;x<taillex;x++) {
                     if (terrain[x][y][z]!=null) {
                         System.out.println("\nBloc "+x+"/"+y+"/"+z);
-                        terrain[x][y][z].afficher();
+                        terrain[x][y][z].afficher(blocs);
                     }
                 }
         System.out.println("\nDimensions : "+taillex+"/"+tailley+"/"+taillez);
@@ -196,7 +196,7 @@ public class Niveau extends Observable {
             for (int y=0;y<tailley;y++) {
                 for (int x=0;x<taillex;x++)
                     if (terrain[x][y][z]!=null)
-                        System.out.print(terrain[x][y][z].getTypeBloc().getId()+"  ");
+                        System.out.print(terrain[x][y][z].getIdBlocType()+"  ");
                     else
                         if (x==joueur.getX() && y==joueur.getY() && z==joueur.getZ())
                             System.out.print("J  ");

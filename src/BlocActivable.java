@@ -2,8 +2,8 @@ public abstract class BlocActivable extends Bloc {
     private boolean etat=false;
     private int idGroupe=0;
 
-    public BlocActivable (BlocType bloc) {
-        super(bloc);
+    public BlocActivable (int id) {
+        super(id);
     }
 
     public void setEtat (boolean e) {
@@ -25,8 +25,8 @@ public abstract class BlocActivable extends Bloc {
     public abstract void activation ();
 
     @Override
-    public void afficher () {
-        super.afficher();
+    public void afficher (BlocType [] blocs) {
+        super.afficher(blocs);
         System.out.println("Etat : "+etat);
         System.out.println("IdGroupe : "+idGroupe);
     }

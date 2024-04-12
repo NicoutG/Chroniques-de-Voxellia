@@ -21,12 +21,12 @@ public class Joueur {
         return z;
     }
 
-    public boolean deplacer (Bloc [][][] terrain, int depx, int depy, int depz) {
+    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz) {
         int x2=x+depx;
         int y2=y+depy;
         int z2=z+depz;
         if (0<=x2 && x2<terrain.length && 0<=y2 && y2<terrain[x2].length && 0<=z2 && z2<terrain[x2][y2].length) {
-            if (terrain[x2][y2][z2]==null || terrain[x2][y2][z2].deplacer(terrain,x2,y2,z2,depx,depy,depz,this)) {
+            if (terrain[x2][y2][z2]==null || terrain[x2][y2][z2].deplacer(terrain,blocs,x2,y2,z2,depx,depy,depz,this)) {
                 x=x2;
                 x2=x-depx;
                 y=y2;
@@ -36,7 +36,7 @@ public class Joueur {
 
                 // mise à jour du bloc precedement sous le joueur
                 if (z2>0 && terrain[x2][y2][z2-1]!=null)
-                    terrain[x2][y2][z2-1].miseAjour(terrain, x2, y2, z2-1,this);
+                    terrain[x2][y2][z2-1].miseAjour(terrain,blocs,x2,y2,z2-1,this);
                 
                 // application de la gravite
                 while (z>0 && terrain[x][y][z-1]==null)
@@ -44,7 +44,7 @@ public class Joueur {
                 
                 // mise à jour du bloc desormais sous le joueur
                 if (z>0)
-                    terrain[x][y][z-1].miseAjour(terrain, x, y, z-1,this);
+                    terrain[x][y][z-1].miseAjour(terrain,blocs,x,y,z-1,this);
                 return true;
             }
         }

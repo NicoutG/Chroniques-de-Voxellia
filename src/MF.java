@@ -60,7 +60,7 @@ public class MF extends JFrame implements Observer{
                         tab[i][j].setBackground(Color.GREEN);
                 }
                 else
-                    switch (niveau.getBloc(i,j,0).getTypeBloc().getId()) {
+                    switch (niveau.getBloc(i,j,0).getIdBlocType()) {
                         case 3: tab[i][j].setBackground(Color.BLUE);break;
                         default: tab[i][j].setBackground(Color.BLACK);
                     }
