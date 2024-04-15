@@ -6,6 +6,9 @@ public class Bloc {
     }
 
     public boolean setParametres (String params) {
+        String [] paramList=params.split("/");
+        if (paramList.length!=1)
+            return false;
         return true;
     }
 

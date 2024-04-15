@@ -16,7 +16,7 @@ public class BlocLevier extends BlocActivation {
 
     @Override
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur) {
-        if (depx!=0 || depy!=z) {
+        if (depx!=0 || depy!=0) {
             setEtat(!getEtat());
             if (getEtat())
                 activer(terrain,blocs);
