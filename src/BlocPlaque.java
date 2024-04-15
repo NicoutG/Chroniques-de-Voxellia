@@ -21,7 +21,7 @@ public class BlocPlaque extends BlocActivation {
             if (getEtat()) {
                 if ((joueur.getX()!=x || joueur.getY()!=y || joueur.getZ()!=z+1) && terrain[x][y][z+1]==null) {
                     setEtat(false);
-                    activer(terrain,blocs);
+                    desactiver(terrain,blocs);
                 }
             }
             else {

@@ -136,11 +136,14 @@ public class Niveau extends Observable {
         }
     }
 
-    public boolean deplacerJoueur (int depx, int depy, int depz) {
-        boolean res=joueur.deplacer(terrain,blocs, depx, depy, depz);
-        setChanged();
-        notifyObservers();
-        return res;
+    public boolean deplacerJoueur (String dep) {
+        switch (dep) {
+            case "haut": return joueur.deplacer(terrain,blocs, 0, -1, 0);
+            case "bas": return joueur.deplacer(terrain,blocs, 0, 1, 0);
+            case "gauche": return joueur.deplacer(terrain,blocs, -1, 0, 0);
+            case "droite": return joueur.deplacer(terrain,blocs, 1, 0, 0);
+        }
+        return false;
     }
 
     public void afficherBlocs () {
@@ -203,6 +206,30 @@ public class Niveau extends Observable {
 
     public Joueur getJoueur () {
         return joueur;
+    }
+
+    public void miseAjourTerrain () {
+
+        // application de la gravité sur le joueur
+        joueur.deplacer(terrain,blocs,0,0,-1);
+
+        // application de la gravité sur les blocs
+        for (int z=0;z<taillez;z++)
+            for (int y=0;y<tailley;y++)
+                for (int x=0;x<taillex;x++) {
+                    if (terrain[x][y][z]!=null)
+                        terrain[x][y][z].deplacer(terrain,blocs,x,y,z,0,0,-1,joueur);
+                }
+            
+        // mise à jour des blocs
+        for (int z=0;z<taillez;z++)
+            for (int y=0;y<tailley;y++)
+                for (int x=0;x<taillex;x++) {
+                    if (terrain[x][y][z]!=null)
+                        terrain[x][y][z].miseAjour(terrain, blocs, x, y, z, joueur);
+                    }
+        setChanged();
+        notifyObservers();
     }
 
     public String [] getTextures () {

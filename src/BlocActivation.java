@@ -23,12 +23,33 @@ public class BlocActivation extends Bloc {
     }
 
     protected void activer (Bloc [][][] terrain, BlocType [] blocs) {
+
+        // vérification que tout est allumé pour activer
+        boolean activation=true;
+        for (int x=0;x<terrain.length;x++)
+                for (int y=0;y<terrain[x].length;y++)
+                    for (int z=0;z<terrain[x][y].length;z++)
+                        if (terrain[x][y][z] instanceof BlocActivation && idGroupe==((BlocActivation)terrain[x][y][z]).getIdGroupe() && !((BlocActivation)terrain[x][y][z]).getEtat())
+                            activation=false;
+
+        // si tout est allumé
+        if (activation)
+            for (int x=0;x<terrain.length;x++)
+                for (int y=0;y<terrain[x].length;y++)
+                    for (int z=0;z<terrain[x][y].length;z++)
+                        if (terrain[x][y][z] instanceof BlocActivable)
+                            if (((BlocActivable)terrain[x][y][z]).getIdGroupe()==idGroupe)
+                                ((BlocActivable)terrain[x][y][z]).activation();
+    }
+
+    protected void desactiver (Bloc [][][] terrain, BlocType [] blocs) {
+        // désactivation des blocs du groupe
         for (int x=0;x<terrain.length;x++)
             for (int y=0;y<terrain[x].length;y++)
                 for (int z=0;z<terrain[x][y].length;z++)
                     if (terrain[x][y][z] instanceof BlocActivable)
                         if (((BlocActivable)terrain[x][y][z]).getIdGroupe()==idGroupe)
-                            ((BlocActivable)terrain[x][y][z]).activation();
+                            ((BlocActivable)terrain[x][y][z]).desactivation();
     }
 
     @Override

@@ -24,6 +24,8 @@ public abstract class BlocActivable extends Bloc {
 
     public abstract void activation ();
 
+    public abstract void desactivation ();
+
     @Override
     public void afficher (BlocType [] blocs) {
         super.afficher(blocs);

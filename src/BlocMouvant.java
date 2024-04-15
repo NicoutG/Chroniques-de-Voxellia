@@ -55,28 +55,6 @@ public class BlocMouvant extends Bloc {
     }
 
     @Override
-    public void miseAjour(Bloc[][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
-        if (terrain[x][y][z]!=null) {
-            int zh=z+1;
-            // application de la gravite sur le bloc
-            while (z>0 && terrain[x][y][z-1]==null) {
-                terrain[x][y][z-1]=this;
-                terrain[x][y][z]=null;
-                z--;
-            }
-
-            // application de la gravite sur le bloc du dessus
-            if (zh<terrain[x][y].length && terrain[x][y][zh]!=null)
-                    terrain[x][y][zh].miseAjour(terrain,blocs,x,y,zh,joueur);
-            
-            // mise à jour du bloc du dessous
-            if (z>0 && terrain[x][y][z-1]!=null)
-                terrain[x][y][z-1].miseAjour(terrain,blocs,x,y,z-1,joueur);
-        }
-        super.miseAjour(terrain,blocs,x,y,z,joueur);
-    }
-
-    @Override
     public void afficher (BlocType [] blocs) {
         super.afficher(blocs);
         System.out.println("idPlaque : "+idPlaque);
