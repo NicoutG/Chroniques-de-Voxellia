@@ -10,7 +10,6 @@ public class Niveau extends Observable {
     private int taillez=0;
     private Joueur joueur=new Joueur();
 
-
     public boolean chargerBlocs(String fichier) {
         try {
             String exp=new String(Files.readAllBytes(Paths.get(fichier)));
@@ -54,6 +53,7 @@ public class Niveau extends Observable {
     }
 
     public boolean chargerTerrain (String fichier) {
+        joueur.setVictoire(false);
         if (blocs==null || blocs.length<1) {
             System.out.println("Aucun bloc chargé");
             return false;
@@ -208,10 +208,15 @@ public class Niveau extends Observable {
         return joueur;
     }
 
+    public boolean getVictoire () {
+        return joueur.getVictoire();
+    }
+
     public void miseAjourTerrain () {
 
         // application de la gravité sur le joueur
         joueur.deplacer(terrain,blocs,0,0,-1);
+        joueur.miseAjour(terrain, blocs);
 
         // application de la gravité sur les blocs
         for (int z=0;z<taillez;z++)
@@ -220,14 +225,12 @@ public class Niveau extends Observable {
                     if (terrain[x][y][z]!=null)
                         terrain[x][y][z].deplacer(terrain,blocs,x,y,z,0,0,-1,joueur);
                 }
-            
         // mise à jour des blocs
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
-                for (int x=0;x<taillex;x++) {
+                for (int x=0;x<taillex;x++) 
                     if (terrain[x][y][z]!=null)
                         terrain[x][y][z].miseAjour(terrain, blocs, x, y, z, joueur);
-                    }
         setChanged();
         notifyObservers();
     }

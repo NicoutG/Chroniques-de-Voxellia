@@ -25,7 +25,6 @@ public class BlocPlaque extends BlocActivation {
 
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
-        super.miseAjour(terrain,blocs,x,y,z,joueur);
         if (z+1<terrain[x][y].length) {
             boolean actif=false;
             switch (idBloc) {
@@ -41,8 +40,9 @@ public class BlocPlaque extends BlocActivation {
             else
                 if (actif) {
                     setEtat(true);
-                    activer(terrain,blocs);
+                    activer(terrain,blocs,joueur);
                 }
         }
+        super.miseAjour(terrain,blocs,x,y,z,joueur);
     }
 }

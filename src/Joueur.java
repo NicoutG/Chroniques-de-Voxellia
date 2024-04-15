@@ -4,6 +4,7 @@ public class Joueur {
     private int z;
     private int depX=0;
     private int depY=0;
+    private boolean victoire;
 
     public void setPos(int posx, int posy, int posz) {
         x=posx;
@@ -21,6 +22,14 @@ public class Joueur {
 
     public int getZ () {
         return z;
+    }
+
+    public boolean getVictoire () {
+        return victoire;
+    }
+
+    public void setVictoire (boolean v) {
+        victoire=v;
     }
 
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz) {

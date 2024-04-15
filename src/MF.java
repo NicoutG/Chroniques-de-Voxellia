@@ -79,19 +79,20 @@ public class MF extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+        if (!niveau.getVictoire()) {
+            for (int j=0;j<niveau.getTailley();j++)
+                for (int i=0;i<niveau.getTaillex();i++) {
+                    Bloc bloc=niveau.getBloc(i,j,1);
+                    if (bloc==null) {
+                        if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j)
+                            tab[i][j].setIcon(images[images.length - 1]);
+                        else
+                            tab[i][j].setIcon(images[images.length - 2]);
 
-        for (int j=0;j<niveau.getTailley();j++)
-            for (int i=0;i<niveau.getTaillex();i++) {
-                Bloc bloc=niveau.getBloc(i,j,0);
-                if (bloc==null) {
-                    if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j)
-                        tab[i][j].setIcon(images[images.length - 1]);
+                    }
                     else
-                        tab[i][j].setIcon(images[images.length - 2]);
-
+                        tab[i][j].setIcon(images[bloc.getIdBlocType()]);
                 }
-                else
-                    tab[i][j].setIcon(images[niveau.getBloc(i,j,0).getIdBlocType()]);
-            }
+        }
     }
 }

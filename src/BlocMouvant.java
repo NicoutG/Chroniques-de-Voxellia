@@ -39,7 +39,7 @@ public class BlocMouvant extends Bloc {
                 terrain[x2][y2][z2]=this;
                 terrain[x][y][z]=null;
                 depX=depx;
-                depY=depx;
+                depY=depy;
                 return true;
             }
         }
@@ -49,15 +49,16 @@ public class BlocMouvant extends Bloc {
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         if (depX!=0 || depY!=0) {
-
+            System.out.println("depx : "+depX+" depy : "+depY);
             // si le bloc est sur un bloc de glace, il glisse
-            if (z>0 && terrain[x][y][z]!=null && terrain[x][y][z].getBlocType(blocs).getMatiere()=='g')
+            if (z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g')
                 deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
             else {
                 depX=0;
                 depY=0;
             }
         }
+        super.miseAjour(terrain, blocs, x, y, z, joueur);
     }
 
     @Override

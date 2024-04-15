@@ -19,7 +19,7 @@ public class BlocLevier extends BlocActivation {
         if (depx!=0 || depy!=0) {
             setEtat(!getEtat());
             if (getEtat())
-                activer(terrain,blocs);
+                activer(terrain,blocs,joueur);
             else
                 desactiver(terrain,blocs);
         }
