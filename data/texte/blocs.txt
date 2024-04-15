@@ -1,5 +1,5 @@
-Id Nom Type Mortel Matiere
-0 pierre 0 f p
-1 metal 0 f m
-2 levier 2 f m
-3 pierreMouvante 1 f p
+Id Nom Type Mortel Matiere Texture
+0 pierre 0 f p img.jpg
+1 metal 0 f m img.jpg
+2 levier 2 f m img.jpg
+3 pierreMouvante 1 f p crate.png

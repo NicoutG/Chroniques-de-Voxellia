@@ -7,10 +7,11 @@ public class BlocType {
                             1 bloc mouvant
                             2 bloc d'activation
                             3 bloc activable */
+    private String texture = "default.jpg"; // le chemin de la texture
 
     public boolean charger (String exp) {
         String [] exps=exp.split(" ");
-        if (exps.length!=5) {
+        if (exps.length!=6) {
             System.out.println("Mauvais nombre d'arguments");
             return false;
         }
@@ -19,6 +20,7 @@ public class BlocType {
         type=Integer.parseInt(exps[2]);
         mortel=exps[3].equals("t");
         matiere=exps[4].charAt(0);
+        texture=exps[5];
         return true;
     }
 
@@ -42,11 +44,16 @@ public class BlocType {
         return matiere;
     }
 
+    public String getTexture () {
+        return texture;
+    }
+
     public void afficher () {
         System.out.println("Nom : "+nom);
         System.out.println("Type : "+type);
         System.out.println("Mortel : "+mortel);
         System.out.println("Matiere : "+matiere);
+        System.out.println("Texture : "+texture);
     }
 
 }

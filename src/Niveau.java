@@ -204,5 +204,12 @@ public class Niveau extends Observable {
     public Joueur getJoueur () {
         return joueur;
     }
+
+    public String [] getTextures () {
+        String [] textures=new String [blocs.length];
+        for (int i=0;i<blocs.length;i++)
+            textures[i]=blocs[i].getTexture();
+        return textures;
+    }
     
 }
