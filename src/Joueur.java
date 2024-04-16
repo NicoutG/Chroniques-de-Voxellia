@@ -56,9 +56,10 @@ public class Joueur {
         if (depX!=0 || depY!=0) {
 
             // si le joueur est sur un bloc de glace, il glisse
-            if (z>0 && terrain[x][y][z]!=null && terrain[x][y][z].getBlocType(blocs).getMatiere()=='g')
-                deplacer(terrain,blocs,depX,depY,0);
-            else {
+            boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
+            if (avancer)
+                avancer=deplacer(terrain, blocs,depX,depY,0);
+            if (!avancer) {
                 depX=0;
                 depY=0;
             }

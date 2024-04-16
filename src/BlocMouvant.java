@@ -49,11 +49,14 @@ public class BlocMouvant extends Bloc {
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         if (depX!=0 || depY!=0) {
-            System.out.println("depx : "+depX+" depy : "+depY);
+
             // si le bloc est sur un bloc de glace, il glisse
-            if (z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g')
-                deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
-            else {
+            boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
+            if (avancer) {
+                avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
+                System.out.println("oui");
+            }
+            if (!avancer) {
                 depX=0;
                 depY=0;
             }

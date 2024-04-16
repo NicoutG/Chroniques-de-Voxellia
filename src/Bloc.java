@@ -59,13 +59,8 @@ public class Bloc {
             char matiere=getBlocType(blocs).getMatiere();
             switch (typeBlocInter.getMatiere()) {
                 case 'f': { // Si le bloc d'interraction est du feu
-                    if (matiere=='b' || matiere=='g') { // Si ce bloc est en bois ou en glace
+                    if (matiere=='b' || matiere=='g') // Si ce bloc est en bois ou en glace
                         terrain[x][y][z]=null;
-                        if (z+1<terrain[x][y].length && terrain[x][y][z+1]!=null)
-                            terrain[x][y][z+1].miseAjour(terrain,blocs,x,y,z+1,joueur);
-                        if (0<z && terrain[x][y][z-1]!=null)
-                            terrain[x][y][z-1].miseAjour(terrain,blocs,x,y,z-1,joueur);
-                    }
                 }break;
             }
         }
