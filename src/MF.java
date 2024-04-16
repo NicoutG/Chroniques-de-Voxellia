@@ -71,25 +71,8 @@ public class MF extends JFrame implements Observer{
                     case KeyEvent.VK_LEFT: niveau.deplacerJoueur("gauche");break;
                     case KeyEvent.VK_RIGHT: niveau.deplacerJoueur("droite");break;
                 }
-                niveau.miseAjourTerrain();
             }
         });
-
-        /*Thread terrainUpdateThread = new Thread(() -> {
-            while (true) {
-                
-                // Mettre à jour le terrain à intervalles réguliers (par exemple, toutes les 500 millisecondes)
-                niveau.miseAjourTerrain();
-                try {
-                    Thread.sleep(50); // Attendre 50 millisecondes avant la prochaine mise à jour
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        terrainUpdateThread.start();*/
-
         requestFocus();
     }
 

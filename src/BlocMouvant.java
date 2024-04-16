@@ -2,6 +2,7 @@ public class BlocMouvant extends Bloc {
     private int idPlaque=0; // l'identifiant relatif à une plaque d'activation
     private int depX=0;
     private int depY=0;
+    private long tempsMaj=System.currentTimeMillis();
 
     public BlocMouvant (int id) {
         super(id);
@@ -48,17 +49,24 @@ public class BlocMouvant extends Bloc {
 
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
-        if (depX!=0 || depY!=0) {
 
-            // si le bloc est sur un bloc de glace, il glisse
-            boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
-            if (avancer) {
-                avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
-                System.out.println("oui");
-            }
-            if (!avancer) {
-                depX=0;
-                depY=0;
+        // maj de la position toute les 100 ms
+        if (System.currentTimeMillis()-tempsMaj>=100) {
+            tempsMaj=System.currentTimeMillis();
+
+            //application de la gravité
+            deplacer(terrain,blocs,x,y,z,0,0,-1,joueur);
+
+            if (depX!=0 || depY!=0) {
+                    // si le bloc est sur un bloc de glace, il glisse
+                    boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
+                    if (avancer) {
+                        avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
+                    }
+                    if (!avancer) {
+                        depX=0;
+                        depY=0;
+                    }
             }
         }
         super.miseAjour(terrain, blocs, x, y, z, joueur);

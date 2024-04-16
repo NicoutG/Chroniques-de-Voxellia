@@ -213,26 +213,40 @@ public class Niveau extends Observable {
     }
 
     public void miseAjourTerrain () {
-
-        // application de la gravité sur le joueur
-        joueur.deplacer(terrain,blocs,0,0,-1);
+        
+        // mise à jour du joueur
         joueur.miseAjour(terrain, blocs);
 
-        // application de la gravité sur les blocs
-        for (int z=0;z<taillez;z++)
-            for (int y=0;y<tailley;y++)
-                for (int x=0;x<taillex;x++) {
-                    if (terrain[x][y][z]!=null)
-                        terrain[x][y][z].deplacer(terrain,blocs,x,y,z,0,0,-1,joueur);
-                }
         // mise à jour des blocs
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
                 for (int x=0;x<taillex;x++) 
                     if (terrain[x][y][z]!=null)
                         terrain[x][y][z].miseAjour(terrain, blocs, x, y, z, joueur);
+        
         setChanged();
         notifyObservers();
+    }
+
+    public void lancementNiveau (String fichier) {
+        
+        // chargement du terrain
+        chargerTerrain(fichier);
+
+        Thread terrainUpdateThread = new Thread(() -> {
+            while (!getVictoire()) {
+                
+                // mise à jour du terrain à intervalles réguliers
+                miseAjourTerrain();
+                try {
+                    Thread.sleep(10); // attendre 10 millisecondes avant la prochaine mise à jour (100 maj/s)
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        terrainUpdateThread.start();
     }
 
     public String [] getTextures () {
