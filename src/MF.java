@@ -66,10 +66,10 @@ public class MF extends JFrame implements Observer{
         addKeyListener(new KeyAdapter() {
             public void keyPressed (KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP: niveau.deplacerJoueur("haut");break;
-                    case KeyEvent.VK_DOWN: niveau.deplacerJoueur("bas");break;
-                    case KeyEvent.VK_LEFT: niveau.deplacerJoueur("gauche");break;
-                    case KeyEvent.VK_RIGHT: niveau.deplacerJoueur("droite");break;
+                    case KeyEvent.VK_UP: niveau.actionJoueur("haut");break;
+                    case KeyEvent.VK_DOWN: niveau.actionJoueur("bas");break;
+                    case KeyEvent.VK_LEFT: niveau.actionJoueur("gauche");break;
+                    case KeyEvent.VK_RIGHT: niveau.actionJoueur("droite");break;
                 }
             }
         });

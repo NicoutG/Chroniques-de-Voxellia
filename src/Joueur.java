@@ -5,6 +5,7 @@ public class Joueur {
     private int depX=0;
     private int depY=0;
     private boolean victoire;
+    private boolean mort;
     private long tempsMaj=System.currentTimeMillis();
 
     public void setPos(int posx, int posy, int posz) {
@@ -33,22 +34,22 @@ public class Joueur {
         victoire=v;
     }
 
-    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz) {
-        int x2=x;
-        int y2=y;
-        int z2=z+depz;
+    public boolean getMort () {
+        return mort;
+    }
 
-        // si le joueur a les pieds sur le sol
-        if (z-1>=0 && terrain[x][y][z-1]!=null) {
-            x2=x+depx;
-            y2=y+depy;
-        }
+    public void setMort (boolean m) {
+        mort=m;
+    }
+
+    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz) {
+        int x2=x+depx;
+        int y2=y+depy;
+        int z2=z+depz;
         if (0<=x2 && x2<terrain.length && 0<=y2 && y2<terrain[x2].length && 0<=z2 && z2<terrain[x2][y2].length) {
             if (terrain[x2][y2][z2]==null || terrain[x2][y2][z2].deplacer(terrain,blocs,x2,y2,z2,depx,depy,depz,this)) {
-                if (z-1>=0 && terrain[x][y][z-1]!=null && depX==0 && depY==0) {
-                    depX=depx;
-                    depY=depy;
-                }
+                depX=depx;
+                depY=depy;
                 x=x2;
                 x2=x-depx;
                 y=y2;
@@ -58,6 +59,8 @@ public class Joueur {
                 return true;
             }
         }
+        if (z==0)
+            setMort(true);
         return false;
     }
 
@@ -82,6 +85,19 @@ public class Joueur {
                     }
             }
         }
+    }
+
+    public boolean actionJoueur (Bloc [][][] terrain, BlocType [] blocs, String action) {
+
+        // si le joueur a les pieds au sol et qu'il ne glisse pas sur de la glace
+        if (z>0 && terrain[x][y][z-1]!=null && ((depX==0 && depY==0) || terrain[x][y][z-1].getBlocType(blocs).getMatiere()!='g'))
+            switch (action) {
+                case "haut": return deplacer(terrain,blocs, 0, -1, 0);
+                case "bas": return deplacer(terrain,blocs, 0, 1, 0);
+                case "gauche": return deplacer(terrain,blocs, -1, 0, 0);
+                case "droite": return deplacer(terrain,blocs, 1, 0, 0);
+            }
+        return false;
     }
 
 }

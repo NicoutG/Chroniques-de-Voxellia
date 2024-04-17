@@ -4,3 +4,4 @@ Id Nom Type Mortel Matiere Texture
 2 levier 2 f m img.jpg
 3 pierreMouvante 1 f p crate.png
 4 BlocGlace 0 f g img.jpg
+5 plaque 3 f m img.jpg

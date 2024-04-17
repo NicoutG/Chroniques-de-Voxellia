@@ -32,16 +32,20 @@ public class BlocPlaque extends BlocActivation {
                 case -1: actif=terrain[x][y][z+1]!=null;break;
                 default: actif=terrain[x][y][z+1] instanceof BlocMouvant && ((BlocMouvant)terrain[x][y][z+1]).getIdPlaque()==idBloc;break;
             }
-            if (getEtat())
+            
+            // activation ou désactivation de la plaque
+            if (getEtat()) {
                 if (!actif) {
                     setEtat(false);
                     desactiver(terrain,blocs);
                 }
-            else
+            }
+            else {
                 if (actif) {
                     setEtat(true);
                     activer(terrain,blocs,joueur);
                 }
+            }
         }
         super.miseAjour(terrain,blocs,x,y,z,joueur);
     }

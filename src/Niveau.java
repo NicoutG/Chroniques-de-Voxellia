@@ -9,6 +9,7 @@ public class Niveau extends Observable {
     private int tailley=0;
     private int taillez=0;
     private Joueur joueur=new Joueur();
+    private String nomNiveau;
 
     public boolean chargerBlocs(String fichier) {
         try {
@@ -52,8 +53,10 @@ public class Niveau extends Observable {
         }
     }
 
-    public boolean chargerTerrain (String fichier) {
+    private boolean chargerTerrain (String fichier) {
+        nomNiveau=fichier;
         joueur.setVictoire(false);
+        joueur.setMort(false);
         if (blocs==null || blocs.length<1) {
             System.out.println("Aucun bloc chargé");
             return false;
@@ -136,14 +139,8 @@ public class Niveau extends Observable {
         }
     }
 
-    public boolean deplacerJoueur (String dep) {
-        switch (dep) {
-            case "haut": return joueur.deplacer(terrain,blocs, 0, -1, 0);
-            case "bas": return joueur.deplacer(terrain,blocs, 0, 1, 0);
-            case "gauche": return joueur.deplacer(terrain,blocs, -1, 0, 0);
-            case "droite": return joueur.deplacer(terrain,blocs, 1, 0, 0);
-        }
-        return false;
+    public boolean actionJoueur (String action) {
+        return joueur.actionJoueur(terrain,blocs,action);
     }
 
     public void afficherBlocs () {
@@ -212,7 +209,11 @@ public class Niveau extends Observable {
         return joueur.getVictoire();
     }
 
-    public void miseAjourTerrain () {
+    public boolean getMort () {
+        return joueur.getMort();
+    }
+
+    private void miseAjourTerrain () {
         
         // mise à jour du joueur
         joueur.miseAjour(terrain, blocs);
@@ -238,6 +239,10 @@ public class Niveau extends Observable {
                 
                 // mise à jour du terrain à intervalles réguliers
                 miseAjourTerrain();
+
+                // on recharge le niveau lorsque le joueur meurt
+                if (getMort())
+                    chargerTerrain(nomNiveau);
                 try {
                     Thread.sleep(10); // attendre 10 millisecondes avant la prochaine mise à jour (100 maj/s)
                 } catch (InterruptedException ex) {
