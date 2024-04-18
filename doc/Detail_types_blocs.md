@@ -31,7 +31,7 @@ Les blocs de plaque.
 
 2 à 3 paramètres
 
-    Paramètre 1 : Etat par défaut de la plaque (t = activer, f = désactiver)
+    Paramètre 1 : Etat par défaut de la plaque non préssée (t = activer, f = désactiver)
     Paramètre 2 : Id de groupe (-1 accorde la victoire, autre active les blocs activables du même Id)
     Paramètre 3 : Id d'activation (-2 par defaut)
                     - -2 : activable par le joueur et les blocs mouvants
