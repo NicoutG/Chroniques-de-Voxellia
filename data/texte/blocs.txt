@@ -7,3 +7,4 @@ Id Nom Type Mortel Matiere Texture
 5 plaque 3 f m block-red.png
 6 teleporteur 4 f m block-purple.png
 7 herbe 0 f p block-grass.png
+8 dac 0 f p block-dac.png
