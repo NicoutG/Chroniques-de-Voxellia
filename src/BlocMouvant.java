@@ -1,5 +1,5 @@
 public class BlocMouvant extends Bloc {
-    private int idPlaque=0; // l'identifiant relatif à une plaque d'activation
+    private int idBloc=0; // l'identifiant relatif à une plaque d'activation
     private int depX=0;
     private int depY=0;
     private long tempsMaj=System.currentTimeMillis();
@@ -14,18 +14,18 @@ public class BlocMouvant extends Bloc {
         if (paramList.length>2)
             return false;
         if (paramList.length==2)
-            idPlaque=Integer.parseInt(paramList[1]);
+            idBloc=Integer.parseInt(paramList[1]);
         else
-            idPlaque=-1;
+            idBloc=-1;
         return true;
     }
 
     public int getIdPlaque () {
-        return idPlaque;
+        return idBloc;
     }
 
     public void setIdPlaque (int id) {
-        idPlaque=id;
+        idBloc=id;
     }
 
     @Override
@@ -75,6 +75,6 @@ public class BlocMouvant extends Bloc {
     @Override
     public void afficher (BlocType [] blocs) {
         super.afficher(blocs);
-        System.out.println("idPlaque : "+idPlaque);
+        System.out.println("idBloc : "+idBloc);
     }
 }
