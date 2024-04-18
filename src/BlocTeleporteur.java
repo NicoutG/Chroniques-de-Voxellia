@@ -1,6 +1,6 @@
 public class BlocTeleporteur extends BlocActivable {
     private int idTele=0;
-    private boolean attente=false;
+    private int attente=0;
 
     public BlocTeleporteur (int id) {
         super(id);
@@ -21,6 +21,10 @@ public class BlocTeleporteur extends BlocActivable {
         return idTele;
     }
 
+    public void setAttente (int a) {
+        attente=a;
+    }
+
     public void activation () {
         setEtat(true);
     }
@@ -30,65 +34,62 @@ public class BlocTeleporteur extends BlocActivable {
     }
 
     private boolean teleporterJoueur (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
-        if (z+1<terrain[x][y].length && terrain[x][y][z+1]==null) {
-            joueur.setPos(x,y,z+1);
-            return true;
-        }
-        if (y>0 && terrain[x][y-1][z]==null) {
-            joueur.setPos(x,y-1,z);
-            return true;
-        }
-        if (y+1<terrain[x].length && terrain[x][y+1][z]==null) {
-            joueur.setPos(x,y+1,z);
-            return true;
-        }
-        if (x>0 && terrain[x-1][y][z]==null) {
-            joueur.setPos(x-1,y,z);
-            return true;
-        }
-        if (x+1<terrain.length && terrain[x+1][y][z]==null) {
-            joueur.setPos(x+1,y,z);
-            return true;
-        }
-        if (z>0 && terrain[x][y][z-1]==null) {
-            joueur.setPos(x,y,z-1);
-            return true;
+        int [][] val ={{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z},{x,y,z-1}};
+        int xi,yi,zi;
+        for (int i=0;i<6;i++) {
+            xi=val[i][0];
+            yi=val[i][1];
+            zi=val[i][2];
+            if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                if (terrain[xi][yi][zi]==null) {
+                    joueur.setPos(xi,yi,zi);
+                    if (terrain[x][y][z] instanceof BlocTeleporteur)
+                        ((BlocTeleporteur)terrain[x][y][z]).setAttente(1);
+                    return true;
+                }
+            }
         }
         return false;
     }
 
     private boolean teleporterBloc (Bloc [][][] terrain, BlocType [] blocs, int xb, int yb, int zb, int x, int y, int z, Joueur joueur) {
-        if (z+1<terrain[x][y].length && terrain[x][y][z+1]==null) {
-            terrain[x][y][z+1]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
-        }
-        if (y>0 && terrain[x][y-1][z]==null) {
-            terrain[x][y-1][z]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
-        }
-        if (y+1<terrain[x].length && terrain[x][y+1][z]==null) {
-            terrain[x][y+1][z]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
-        }
-        if (x>0 && terrain[x-1][y][z]==null) {
-            terrain[x-1][y][z]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
-        }
-        if (x+1<terrain.length && terrain[x+1][y][z]==null) {
-            terrain[x+1][y][z]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
-        }
-        if (z>0 && terrain[x][y][z-1]==null) {
-            terrain[x][y][z-1]=terrain[xb][yb][zb];
-            terrain[xb][yb][zb]=null;
-            return true;
+        int [][] val ={{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z},{x,y,z-1}};
+        int xi,yi,zi;
+        for (int i=0;i<6;i++) {
+            xi=val[i][0];
+            yi=val[i][1];
+            zi=val[i][2];
+            if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                if (terrain[xi][yi][zi]==null) {
+                    terrain[xi][yi][zi]=terrain[xb][yb][zb];
+                    terrain[xb][yb][zb]=null;
+                    if (terrain[x][y][z] instanceof BlocTeleporteur)
+                        ((BlocTeleporteur)terrain[x][y][z]).setAttente(2);
+                    return true;
+                }
+            }
         }
         return false;
+    }
+
+    private int verifAutour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
+        int xj=joueur.getX();
+        int yj=joueur.getY();
+        int zj=joueur.getZ();
+        int [][] val ={{x,y,z-1},{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z}};
+        int xi,yi,zi;
+        for (int i=0;i<6;i++) {
+            xi=val[i][0];
+            yi=val[i][1];
+            zi=val[i][2];
+            if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                if (xj==xi && yj==yi && zj==zi)
+                    return 1;
+                if (terrain[xi][yi][zi] instanceof BlocMouvant)
+                    return 2;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -97,10 +98,15 @@ public class BlocTeleporteur extends BlocActivable {
 
         // téléportation des blocs et du joueur
         if (getEtat()) {
-            if (!attente) {
+            int autour=verifAutour(terrain, blocs, x, y, z, joueur);
+            if (attente!=autour)
+                attente=0;
+            if (attente!=autour) {
                 int xtp=0;
                 int ytp=0;
                 int ztp=0;
+
+                // recherche d'un téléporteur de destination
                 boolean trouver=false;
                 for (int xi=0;xi<terrain.length;xi++)
                     for (int yi=0;yi<terrain[xi].length;yi++)
@@ -112,67 +118,43 @@ public class BlocTeleporteur extends BlocActivable {
                                 ztp=zi;
                             }
                 if (trouver) {
-                    int xj=joueur.getX();
-                    int yj=joueur.getY();
-                    int zj=joueur.getZ();
-                    if (z+1<terrain[x][y].length) {
-                        if (xj==x && yj==y && zj==z+1) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x][y][z+1] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x,y,z+1,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                    }
-                    if (z>0) {
-                        if (xj==x && yj==y && zj==z-1) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x][y][z-1] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x,y,z-1,xtp,ytp,ztp,joueur);
-                            return ;
+
+                    // si il faut téléporter le joueur
+                    if (autour==1) {
+                        int xj=joueur.getX();
+                        int yj=joueur.getY();
+                        int zj=joueur.getZ();
+                        int [][] val ={{x,y,z-1},{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z}};
+                        int xi,yi,zi;
+                        for (int i=0;i<6;i++) {
+                            xi=val[i][0];
+                            yi=val[i][1];
+                            zi=val[i][2];
+                            if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                                if (xj==xi && yj==yi && zj==zi) {
+                                    teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
+                                    return ;
+                                }
+                            }
                         }
                     }
-                    if (y+1<terrain[x].length) {
-                        if (xj==x && yj==y+1 && zj==z) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x][y+1][z] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x,y+1,z,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                    }
-                    if (y>0) {
-                        if (xj==x && yj==y-1 && zj==z) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x][y-1][z] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x,y-1,z,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                    }
-                    if (x+1<terrain.length) {
-                        if (xj==x+1 && yj==y && zj==z) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x+1][y][z] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x+1,y,z,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                    }
-                    if (x>0) {
-                        if (xj==x-1 && yj==y && zj==z) {
-                            teleporterJoueur(terrain,blocs,xtp,ytp,ztp,joueur);
-                            return ;
-                        }
-                        if (terrain[x-1][y][z] instanceof BlocMouvant) {
-                            teleporterBloc(terrain,blocs,x-1,y,z,xtp,ytp,ztp,joueur);
-                            return ;
+                    else {
+
+                        // si il faut téléporter un bloc mouvant
+                        if (autour==2) {
+                            int [][] val ={{x,y,z-1},{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z}};
+                            int xi,yi,zi;
+                            for (int i=0;i<6;i++) {
+                                xi=val[i][0];
+                                yi=val[i][1];
+                                zi=val[i][2];
+                                if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                                    if (terrain[xi][yi][zi] instanceof BlocMouvant) {
+                                        teleporterBloc(terrain,blocs,xi,yi,zi,xtp,ytp,ztp,joueur);
+                                        return ;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
