@@ -76,7 +76,6 @@ public class MF extends JFrame implements Observer{
                     offsetY = ((blockHeight * (i + j)) / 2 - k * blockHeight) / 2;
 
                     tab[i][j][k].setBounds(offsetX, offsetY, blockWidth, blockHeight);
-
                     jpC.add(tab[i][j][k]);
                     jpC.setComponentZOrder(tab[i][j][k],  j*k);
 

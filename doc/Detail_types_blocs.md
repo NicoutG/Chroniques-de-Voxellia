@@ -20,7 +20,7 @@ Les blocs de levier.
 
 2 paramètres
 
-    Paramètre 1 : Etat du levier (t = activer, f = désactiver)
+    Paramètre 1 : Etat du levier (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe
                     - -1 : accorde la victoire
                     - autres : active les blocs activables du même Id
@@ -31,9 +31,19 @@ Les blocs de plaque.
 
 2 à 3 paramètres
 
-    Paramètre 1 : Etat par défaut de la plaque non préssée (t = activer, f = désactiver)
+    Paramètre 1 : Etat par défaut de la plaque non préssée (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (-1 accorde la victoire, autre active les blocs activables du même Id)
     Paramètre 3 : Id d'activation (-2 par defaut)
                     - -2 : activable par le joueur et les blocs mouvants
                     - -1 : activable par toutes les blocs mouvant
                     - autres : activable par les blocs mouvants du même Id
+
+## Type 4
+
+Les blocs de téléportation
+
+3 paramètres
+
+    Paramètre 1 : Etat par défautt du téléporteur (t = activé, f = désactivé)
+    Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
+    Paramètre 3 : Id de téléportation (pour repérer le téléporteur de destination)
