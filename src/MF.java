@@ -12,11 +12,12 @@ import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JLayeredPane;
+import java.awt.Insets;
 
 public class MF extends JFrame implements Observer{
     
     Niveau niveau;
-    JLabel tab [][]=null;
+    JLabel tab [][][]=null;
     ImageIcon images[] = null;
 
     public MF (Niveau niv) {
@@ -26,17 +27,26 @@ public class MF extends JFrame implements Observer{
     }
 
     private void build () {
+
+        setTitle("Sokoban");
+        setLayout(new BorderLayout());
+
+        int layoutSize = 1500;
+
         int taillex=niveau.getTaillex();
         int tailley=niveau.getTailley();
+        int taillez=niveau.getTaillez();
        
-        int height = 780 / tailley;
-        int width = height;
+        int blockHeight = layoutSize / tailley;
+        int blockWidth = blockHeight;
 
-        tab = new JLabel[tailley][taillex];
+        tab = new JLabel[taillex][tailley][taillez];
 
-        JPanel jp=new JPanel(new FlowLayout());
-        JPanel jpC=new JPanel(new GridLayout(taillex,tailley,0,0));
-        jp.add(jpC, BorderLayout.CENTER);
+        JPanel jp=new JPanel();
+        JPanel jpC=new JPanel();
+        jpC.setLayout(null);
+        jpC.setPreferredSize(new Dimension(layoutSize, layoutSize));
+        jp.add(jpC);
         add(jp);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,19 +55,32 @@ public class MF extends JFrame implements Observer{
         String[] textures = niveau.getTextures();
         images = new ImageIcon[textures.length + 2];
         for (int i=0;i<textures.length;i++) {
-            images[i] = new ImageIcon(new ImageIcon( "data/img/"+textures[i]).getImage().getScaledInstance(width, height, java.awt.Image.SCALE_FAST));
+            images[i] = new ImageIcon(new ImageIcon( "data/img/"+textures[i]).getImage().getScaledInstance(blockWidth, blockHeight, java.awt.Image.SCALE_FAST));
         }
-        images[textures.length] = new ImageIcon(new ImageIcon( "data/img/grass.jpg").getImage().getScaledInstance(width, height, java.awt.Image.SCALE_FAST));
-        images[textures.length + 1] = new ImageIcon(new ImageIcon( "data/img/player.png").getImage().getScaledInstance(width, height, java.awt.Image.SCALE_FAST));
+
+        images[textures.length + 1] = new ImageIcon(new ImageIcon( "data/img/player.png").getImage().getScaledInstance(blockWidth, blockHeight, java.awt.Image.SCALE_FAST));
         
-        for (int j=0;j<tailley;j++)
-            for (int i=0;i<taillex;i++) {
-                tab[i][j]=new JLabel();
-                // tab[i][j].setOpaque(true);
-                tab[i][j].setPreferredSize(new Dimension(width, height));
-                tab[i][j].setMinimumSize(new Dimension(width, height));
-                tab[i][j].setMaximumSize(new Dimension(width, height));
-                jpC.add(tab[i][j]);
+        int offsetX = 0;
+        int offsetY = 0;
+
+        for (int k=0;k<taillez;k++) {
+            for (int j=0;j<tailley;j++)
+                for (int i=0;i<taillex;i++) {
+                    tab[i][j][k]=new JLabel();
+                    // tab[i][j].setOpaque(true);
+                    tab[i][j][k].setPreferredSize(new Dimension(blockWidth, blockHeight));
+                    tab[i][j][k].setMinimumSize(new Dimension(blockWidth, blockHeight));
+                    tab[i][j][k].setMaximumSize(new Dimension(blockWidth, blockHeight));
+
+                    offsetX = layoutSize / 2 + blockWidth/2 *(i - j);
+                    offsetY = (blockHeight/4) * (i + j) - k * blockHeight/2;
+
+                    tab[i][j][k].setBounds(offsetX, offsetY, blockWidth, blockHeight);
+
+                    jpC.add(tab[i][j][k]);
+                    jpC.setComponentZOrder(tab[i][j][k],  j*k);
+
+                }
             }
         update(niveau,null);
     }
@@ -79,19 +102,22 @@ public class MF extends JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         if (!niveau.getVictoire()) {
-            for (int j=0;j<niveau.getTailley();j++)
-                for (int i=0;i<niveau.getTaillex();i++) {
-                    Bloc bloc=niveau.getBloc(i,j,1);
-                    if (bloc==null) {
-                        if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j)
-                            tab[i][j].setIcon(images[images.length - 1]);
-                        else
-                            tab[i][j].setIcon(images[images.length - 2]);
+            for (int k=0;k<niveau.getTaillez();k++)
+                for (int j=0;j<niveau.getTailley();j++)
+                    for (int i=0;i<niveau.getTaillex();i++) {
+                        Bloc bloc=niveau.getBloc(i,j,k);
+                        if (bloc==null) {
+                            if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j)
+                                tab[i][j][k].setIcon(images[images.length - 1]);
+                            else
+                                tab[i][j][k].setIcon(null);
 
+                        }
+                        else
+                            tab[i][j][k].setIcon(images[bloc.getIdBlocType()]);
                     }
-                    else
-                        tab[i][j].setIcon(images[bloc.getIdBlocType()]);
-                }
+
+            
         }
     }
 }
