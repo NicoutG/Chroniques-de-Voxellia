@@ -1,4 +1,5 @@
 public class BlocPlaque extends BlocActivation {
+    private boolean actif;
     private int idBloc; /*
                             -2 = joueur et blocs peuvent activer
                             -1 = seuls les blocs peuvent activer

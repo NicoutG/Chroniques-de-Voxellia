@@ -5,8 +5,9 @@ public class BlocType {
     private char matiere='d'; // définie la matière du bloc f:feu, g:glace, b:bois, m:metal, p:pierre
     private int type=0; /*  0 bloc normal
                             1 bloc mouvant
-                            2 bloc d'activation
-                            3 bloc activable */
+                            2 bloc de levier
+                            3 bloc de plaque
+                        */
     private String texture = "default.jpg"; // le chemin de la texture
 
     public boolean charger (String exp) {
