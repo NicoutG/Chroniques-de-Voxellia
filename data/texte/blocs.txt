@@ -1,8 +1,9 @@
 Id Nom Type Mortel Matiere Texture
 0 pierre 0 f p block-blue.png
-1 metal 0 f m  block-blue.png
-2 levier 2 f m  block-blue.png
+1 metal 0 f m  block-white.png
+2 levier 2 f m  block-green.png
 3 pierreMouvante 1 f p block-wood.png
-4 BlocGlace 0 f g  block-grass.png
-5 plaque 3 f m img.jpg
-6 teleporteur 4 f m img.jpg
+4 BlocGlace 0 f g  block-ice.png
+5 plaque 3 f m block-red.png
+6 teleporteur 4 f m block-purple.png
+7 herbe 0 f p block-grass.png
