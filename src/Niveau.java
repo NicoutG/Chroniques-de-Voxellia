@@ -214,7 +214,7 @@ public class Niveau extends Observable {
         return joueur.getMort();
     }
 
-    private void miseAjourTerrain () {
+    public void miseAjourTerrain () {
         
         // mise à jour du joueur
         joueur.miseAjour(terrain, blocs);

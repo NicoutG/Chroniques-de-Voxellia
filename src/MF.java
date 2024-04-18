@@ -72,8 +72,8 @@ public class MF extends JFrame implements Observer{
                     tab[i][j][k].setMinimumSize(new Dimension(blockWidth, blockHeight));
                     tab[i][j][k].setMaximumSize(new Dimension(blockWidth, blockHeight));
 
-                    offsetX = layoutSize / 2 + blockWidth/2 *(i - j);
-                    offsetY = (blockHeight/4) * (i + j) - k * blockHeight/2;
+                    offsetX = (layoutSize + blockWidth * (i - j)) / 2 ;
+                    offsetY = ((blockHeight * (i + j)) / 2 - k * blockHeight) / 2;
 
                     tab[i][j][k].setBounds(offsetX, offsetY, blockWidth, blockHeight);
 
@@ -94,6 +94,7 @@ public class MF extends JFrame implements Observer{
                     case KeyEvent.VK_LEFT: niveau.actionJoueur("gauche");break;
                     case KeyEvent.VK_RIGHT: niveau.actionJoueur("droite");break;
                 }
+                niveau.miseAjourTerrain();
             }
         });
         requestFocus();
@@ -107,7 +108,7 @@ public class MF extends JFrame implements Observer{
                     for (int i=0;i<niveau.getTaillex();i++) {
                         Bloc bloc=niveau.getBloc(i,j,k);
                         if (bloc==null) {
-                            if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j)
+                            if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j && niveau.getJoueur().getZ()==k)
                                 tab[i][j][k].setIcon(images[images.length - 1]);
                             else
                                 tab[i][j][k].setIcon(null);
