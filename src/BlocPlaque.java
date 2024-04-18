@@ -1,5 +1,5 @@
 public class BlocPlaque extends BlocActivation {
-    private boolean actif;
+    private boolean valActif;
     private int idBloc; /*
                             -2 = joueur et blocs peuvent activer
                             -1 = seuls les blocs peuvent activer
@@ -15,8 +15,9 @@ public class BlocPlaque extends BlocActivation {
         String [] paramList=params.split("/");
         if (paramList.length!=3 && paramList.length!=4)
             return false;
-        super.setEtat(paramList[1].equals("t"));
-        super.setIdGroupe(Integer.parseInt(paramList[2]));
+        valActif=paramList[1].equals("t");
+        setEtat(!valActif);
+        setIdGroupe(Integer.parseInt(paramList[2]));
         if (paramList.length==3)
             idBloc=-2;
         else
@@ -35,15 +36,15 @@ public class BlocPlaque extends BlocActivation {
             }
             
             // activation ou désactivation de la plaque
-            if (getEtat()) {
+            if (getEtat()==valActif) {
                 if (!actif) {
-                    setEtat(false);
+                    setEtat(!getEtat());
                     desactiver(terrain,blocs);
                 }
             }
             else {
                 if (actif) {
-                    setEtat(true);
+                    setEtat(!getEtat());
                     activer(terrain,blocs,joueur);
                 }
             }
