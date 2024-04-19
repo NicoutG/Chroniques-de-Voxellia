@@ -123,6 +123,7 @@ public class Niveau extends Observable {
                                     case 2: terrain[x][y][z]=new BlocLevier (indice);break;
                                     case 3: terrain[x][y][z]=new BlocPlaque (indice);break;
                                     case 4: terrain[x][y][z]=new BlocTeleporteur (indice);break;
+                                    case 5: terrain[x][y][z]=new BlocPiston (indice);break;
                                     default: terrain[x][y][z]=new Bloc (indice);
                                 }
                                 if (!terrain[x][y][z].setParametres(line[x])) {
@@ -223,9 +224,16 @@ public class Niveau extends Observable {
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
                 for (int x=0;x<taillex;x++) 
-                    if (terrain[x][y][z]!=null)
+                    if (terrain[x][y][z]!=null) {
                         terrain[x][y][z].miseAjour(terrain, blocs, x, y, z, joueur);
+                        if (x==joueur.getX() && y==joueur.getY() && z==joueur.getZ())
+                            joueur.setMort(true);
+                    }
         
+        // on recharge le niveau lorsque le joueur meurt
+        if (getMort())
+            chargerTerrain(nomNiveau);
+
         setChanged();
         notifyObservers();
     }
@@ -241,9 +249,6 @@ public class Niveau extends Observable {
                 // mise à jour du terrain à intervalles réguliers
                 miseAjourTerrain();
 
-                // on recharge le niveau lorsque le joueur meurt
-                if (getMort())
-                    chargerTerrain(nomNiveau);
                 try {
                     Thread.sleep(10); // attendre 10 millisecondes avant la prochaine mise à jour (100 maj/s)
                 } catch (InterruptedException ex) {

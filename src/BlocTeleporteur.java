@@ -25,11 +25,11 @@ public class BlocTeleporteur extends BlocActivable {
         attente=a;
     }
 
-    public void activation () {
+    public void activation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(true);
     }
 
-    public void desactivation () {
+    public void desactivation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(false);
     }
 

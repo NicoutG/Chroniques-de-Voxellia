@@ -22,9 +22,9 @@ public abstract class BlocActivable extends Bloc {
         return idGroupe;
     }
 
-    public abstract void activation ();
+    public abstract void activation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur);
 
-    public abstract void desactivation ();
+    public abstract void desactivation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur);
 
     @Override
     public void afficher (BlocType [] blocs) {

@@ -6,5 +6,12 @@ Id Nom Type Mortel Matiere Texture
 4 BlocGlace 0 f g  block-ice.png
 5 plaque 3 f m block-red.png
 6 teleporteur 4 f m block-purple.png
-7 herbe 0 f p block-grass.png
-8 dac 0 f p block-dac.png
+7 herbe 0 f t block-grass.png
+8 dac 0 f m block-dac.png
+9 blocPiston 5 f m block-white.png
+10 piston0 0 f m block-white.png
+11 piston1 0 f m block-white.png
+12 piston2 0 f m block-white.png
+13 piston3 0 f m block-white.png
+14 piston4 0 f m block-white.png
+15 piston5 0 f m block-white.png

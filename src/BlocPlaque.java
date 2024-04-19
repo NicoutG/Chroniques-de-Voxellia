@@ -1,5 +1,5 @@
 public class BlocPlaque extends BlocActivation {
-    private boolean valActif;
+    private boolean valNonActif;
     private int idBloc; /*
                             -2 = joueur et blocs peuvent activer
                             -1 = seuls les blocs peuvent activer
@@ -15,8 +15,8 @@ public class BlocPlaque extends BlocActivation {
         String [] paramList=params.split("/");
         if (paramList.length!=3 && paramList.length!=4)
             return false;
-        valActif=paramList[1].equals("t");
-        setEtat(!valActif);
+        valNonActif=!paramList[1].equals("t");
+        setEtat(valNonActif);
         setIdGroupe(Integer.parseInt(paramList[2]));
         if (paramList.length==3)
             idBloc=-2;
@@ -30,22 +30,22 @@ public class BlocPlaque extends BlocActivation {
         if (z+1<terrain[x][y].length) {
             boolean actif=false;
             switch (idBloc) {
-                case -2: actif=(joueur.getX()==x && joueur.getY()==y && joueur.getZ()==z+1) || terrain[x][y][z+1]!=null;break;
-                case -1: actif=terrain[x][y][z+1]!=null;break;
+                case -2: actif=(joueur.getX()==x && joueur.getY()==y && joueur.getZ()==z+1) || (terrain[x][y][z+1]!=null && terrain[x][y][z+1] instanceof BlocMouvant);break;
+                case -1: actif=terrain[x][y][z+1]!=null && terrain[x][y][z+1] instanceof BlocMouvant;break;
                 default: actif=terrain[x][y][z+1] instanceof BlocMouvant && ((BlocMouvant)terrain[x][y][z+1]).getIdPlaque()==idBloc;break;
             }
             
             // activation ou désactivation de la plaque
-            if (getEtat()==valActif) {
+            if (getEtat()!=valNonActif) {
                 if (!actif) {
-                    setEtat(!getEtat());
-                    desactiver(terrain,blocs);
+                    desactiver(terrain,blocs,joueur);
+                    setEtat(true);
                 }
             }
             else {
                 if (actif) {
-                    setEtat(!getEtat());
                     activer(terrain,blocs,joueur);
+                    setEtat(false);
                 }
             }
         }
