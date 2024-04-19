@@ -38,6 +38,7 @@ public class MF extends JFrame implements Observer{
         int taillez=niveau.getTaillez();
        
         int blockHeight = layoutSize / tailley;
+        if (blockHeight > 40) blockHeight = 40;
         int blockWidth = blockHeight;
 
         tab = new JLabel[taillex][tailley][taillez];
@@ -73,11 +74,13 @@ public class MF extends JFrame implements Observer{
                     tab[i][j][k].setMaximumSize(new Dimension(blockWidth, blockHeight));
 
                     offsetX = (layoutSize + blockWidth * (i - j)) / 2 ;
-                    offsetY = ((blockHeight * (i + j)) / 2 - k * blockHeight) / 2;
+                    offsetY = ((blockHeight * (i + j)) / 2 - k * blockHeight) / 2 + taillez * blockHeight/2;
 
                     tab[i][j][k].setBounds(offsetX, offsetY, blockWidth, blockHeight);
                     jpC.add(tab[i][j][k]);
-                    jpC.setComponentZOrder(tab[i][j][k],  j*k);
+
+
+                    jpC.setComponentZOrder(tab[i][j][k],0);
 
                 }
             }
