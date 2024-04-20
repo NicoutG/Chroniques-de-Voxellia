@@ -71,7 +71,10 @@ public class Joueur {
             tempsMaj=System.currentTimeMillis();
 
             // application de la gravité
-            deplacer(terrain,blocs,0,0,-1);
+            if (deplacer(terrain,blocs,0,0,-1)) {
+                if (z>0 && terrain[x][y][z-1]!=null)
+                    terrain[x][y][z-1].impacter(terrain,blocs,x,y,z-1,this);
+            }
 
             if (depX!=0 || depY!=0) {
                     // si le bloc est sur un bloc de glace, il glisse

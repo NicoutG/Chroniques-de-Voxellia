@@ -27,29 +27,18 @@ public class Bloc {
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
 
         // teste les interractions avec les blocs autour de lui et interragit
-        if (x+1<terrain.length && terrain[x+1][y][z]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x+1][y][z],joueur);
-            terrain[x+1][y][z].interraction(terrain,blocs,x+1,y,z,terrain[x][y][z],joueur);
-        }
-        if (1<=x && terrain[x-1][y][z]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x-1][y][z],joueur);
-            terrain[x-1][y][z].interraction(terrain,blocs,x-1,y,z,terrain[x][y][z],joueur);
-        }
-        if (y+1<terrain[x].length && terrain[x][y+1][z]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x][y+1][z],joueur);
-            terrain[x][y+1][z].interraction(terrain,blocs,x,y+1,z,terrain[x][y][z],joueur);
-        }
-        if (1<=y && terrain[x][y-1][z]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x][y-1][z],joueur);
-            terrain[x][y-1][z].interraction(terrain,blocs,x,y-1,z,terrain[x][y][z],joueur);
-        }
-        if (z+1<terrain[x][y].length && terrain[x][y][z+1]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x][y][z+1],joueur);
-            terrain[x][y][z+1].interraction(terrain,blocs,x,y,z+1,terrain[x][y][z],joueur);
-        }
-        if (1<=z && terrain[x][y][z-1]!=null) {
-            this.interraction(terrain,blocs,x,y,z,terrain[x][y][z-1],joueur);
-            terrain[x][y][z-1].interraction(terrain,blocs,x,y,z-1,terrain[x][y][z],joueur);
+        int [][] val ={{x,y,z-1},{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z}};
+        int xi,yi,zi;
+        for (int i=0;i<6;i++) {
+            xi=val[i][0];
+            yi=val[i][1];
+            zi=val[i][2];
+            if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && 0<=zi && zi<terrain[xi][yi].length) {
+                if (terrain[xi][yi][zi]!=null) {
+                    interraction(terrain,blocs,x,y,z,terrain[xi][yi][zi],joueur);
+                    terrain[xi][yi][zi].interraction(terrain,blocs,xi,yi,zi,terrain[x][y][z],joueur);
+                }
+            }
         }
     }
 
@@ -63,6 +52,12 @@ public class Bloc {
                         terrain[x][y][z]=null;
                 }break;
             }
+        }
+    }
+
+    public void impacter (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
+        if (getBlocType(blocs).getDestructible()) {
+            terrain[x][y][z]=null;
         }
     }
 

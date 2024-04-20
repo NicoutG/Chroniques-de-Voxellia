@@ -47,3 +47,19 @@ Les blocs de téléportation
     Paramètre 1 : Etat par défautt du téléporteur (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : Id de téléportation (pour repérer le téléporteur de destination)
+
+## Type 5
+
+Les blocs de piston
+
+3 paramètres
+
+    Paramètre 1 : Etat par défautt du téléporteur (t = activé, f = désactivé)
+    Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
+    Paramètre 3 : L'orientation du piston
+                    - 0 : haut
+                    - 1 : bas
+                    - 2 : devant
+                    - 3 : derrière
+                    - 4 : gauche
+                    - 5 : droite

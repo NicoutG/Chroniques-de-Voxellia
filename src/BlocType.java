@@ -1,7 +1,7 @@
 public class BlocType {
     private int id=0;
     private String nom="default"; // le nom du bloc
-    private boolean mortel=false; // si le bloc est mortel au touché
+    private boolean destructible=false; // si le bloc se casse lorsque le joueur ou un bloc tombe dessus
     private char matiere='d'; // définie la matière du bloc f:feu, g:glace, b:bois, m:metal, p:pierre
     private int type=0; /*  0 bloc normal
                             1 bloc mouvant
@@ -19,7 +19,7 @@ public class BlocType {
         id=Integer.parseInt(exps[0]);
         nom=exps[1];
         type=Integer.parseInt(exps[2]);
-        mortel=exps[3].equals("t");
+        destructible=exps[3].equals("t");
         matiere=exps[4].charAt(0);
         texture=exps[5];
         return true;
@@ -33,8 +33,8 @@ public class BlocType {
         return nom;
     }
 
-    public boolean getMortel () {
-        return mortel;
+    public boolean getDestructible () {
+        return destructible;
     }
 
     public int getType () {
@@ -52,7 +52,7 @@ public class BlocType {
     public void afficher () {
         System.out.println("Nom : "+nom);
         System.out.println("Type : "+type);
-        System.out.println("Mortel : "+mortel);
+        System.out.println("Mortel : "+destructible);
         System.out.println("Matiere : "+matiere);
         System.out.println("Texture : "+texture);
     }

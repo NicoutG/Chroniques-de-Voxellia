@@ -15,7 +15,7 @@ public class BlocPlaque extends BlocActivation {
         String [] paramList=params.split("/");
         if (paramList.length!=3 && paramList.length!=4)
             return false;
-        valNonActif=!paramList[1].equals("t");
+        valNonActif=paramList[1].equals("t");
         setEtat(valNonActif);
         setIdGroupe(Integer.parseInt(paramList[2]));
         if (paramList.length==3)
@@ -38,14 +38,20 @@ public class BlocPlaque extends BlocActivation {
             // activation ou désactivation de la plaque
             if (getEtat()!=valNonActif) {
                 if (!actif) {
-                    desactiver(terrain,blocs,joueur);
-                    setEtat(true);
+                    setEtat(!getEtat());
+                    if (valNonActif)
+                        activer(terrain,blocs,joueur);
+                    else
+                        desactiver(terrain,blocs,joueur);
                 }
             }
             else {
                 if (actif) {
-                    activer(terrain,blocs,joueur);
-                    setEtat(false);
+                    setEtat(!getEtat());
+                    if (valNonActif)
+                        desactiver(terrain,blocs,joueur);
+                    else
+                        activer(terrain,blocs,joueur);
                 }
             }
         }

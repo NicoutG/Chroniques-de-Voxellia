@@ -55,11 +55,14 @@ public class BlocMouvant extends Bloc {
             tempsMaj=System.currentTimeMillis();
 
             //application de la gravité
-            deplacer(terrain,blocs,x,y,z,0,0,-1,joueur);
+            if (deplacer(terrain,blocs,x,y,z,0,0,-1,joueur)) {
+                if (z>1 && terrain[x][y][z-2]!=null)
+                    terrain[x][y][z-2].impacter(terrain,blocs,x,y,z-2,joueur);
+            }
 
             if (depX!=0 || depY!=0) {
-                    // si le bloc est sur un bloc de glace, il glisse
-                    boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
+                    // si le bloc est sur un bloc de glace ou si c'est un bloc de glace, il glisse
+                    boolean avancer=(getBlocType(blocs).getMatiere()=='g'  || (z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g'));
                     if (avancer) {
                         avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
                     }
