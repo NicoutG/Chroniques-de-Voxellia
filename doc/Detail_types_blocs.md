@@ -63,3 +63,12 @@ Les blocs de piston
                     - 3 : derrière
                     - 4 : gauche
                     - 5 : droite
+
+## Type 6
+
+Les ennemis qui suivent le joueur
+
+0 à 1 paramètres
+
+    Paramètre 1 : Id du bloc (Si on veut qu'un mécanisme ne soit activable que par un seul bloc) (-1 si non précisé)
+
