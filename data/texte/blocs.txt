@@ -18,3 +18,4 @@ Id Nom Type Destructible Matiere Texture
 16 brazero 1 f f block-white.png
 17 glaceMouvante 1 f g block-ice.png
 18 pierreFragile 0 t p block-blue.png
+19 monstre 6 f p player.png

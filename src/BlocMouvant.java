@@ -1,5 +1,5 @@
 public class BlocMouvant extends Bloc {
-    private int idBloc=0; // l'identifiant relatif à une plaque d'activation
+    protected int idBloc=0; // l'identifiant relatif à une plaque d'activation
     private int depX=0;
     private int depY=0;
     private long tempsMaj=System.currentTimeMillis();
