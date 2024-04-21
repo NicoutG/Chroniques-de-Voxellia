@@ -17,12 +17,21 @@ public class BlocLevier extends BlocActivation {
     @Override
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur) {
         if (depx!=0 || depy!=0) {
+            setEtat(!getEtat());
             if (getEtat())
                 activer(terrain,blocs,joueur);
             else
                 desactiver(terrain,blocs,joueur);
-            setEtat(!getEtat());
         }
         return super.deplacer(terrain,blocs,x,y,z,depx,depy,depz,joueur);
     }
+
+    @Override
+    public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
+        String [] text=getBlocType(blocs).getTexture().split("\\.");
+        if (getEtat())
+            return text[0]+"T."+text[1];
+        return text[0]+"F."+text[1];
+    }
+
 }

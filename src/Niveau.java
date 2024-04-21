@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.io.File;
+import java.text.ParseException;
 import java.util.Observable;
+import java.util.Vector;
 
 public class Niveau extends Observable {
     private BlocType [] blocs=null; // les différents types de blocs
@@ -261,11 +264,24 @@ public class Niveau extends Observable {
         terrainUpdateThread.start();
     }
 
-    public String [] getTextures () {
-        String [] textures=new String [blocs.length];
-        for (int i=0;i<blocs.length;i++)
-            textures[i]=blocs[i].getTexture();
+    public Vector <String> getTextures (String folder) {
+        File fold=new File (folder);
+        Vector <String> textures=new Vector <String> ();
+        for (File file : fold.listFiles()) {
+            if (!file.isDirectory())
+                textures.add(file.getName());
+        }
         return textures;
+    }
+
+    public String getTextureBloc (int x, int y, int z) {
+        if (0<=x && x<terrain.length && 0<=y && y<terrain[x].length && 0<=z && z<terrain[x][y].length && terrain[x][y][z]!=null)
+            return terrain[x][y][z].getTexture(terrain, blocs, x, y, z, joueur);
+        return "default.jpg";
+    }
+
+    public String getTextureJoueur () {
+        return joueur.getTexture(terrain, blocs);
     }
     
 }

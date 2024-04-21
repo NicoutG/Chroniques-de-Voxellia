@@ -103,4 +103,8 @@ public class Joueur {
         return false;
     }
 
+    public String getTexture (Bloc [][][] terrain, BlocType [] blocs) {
+        return "player.png";
+    }
+
 }

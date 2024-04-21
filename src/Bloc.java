@@ -61,6 +61,10 @@ public class Bloc {
         }
     }
 
+    public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
+        return getBlocType(blocs).getTexture();
+    }
+
     public void afficher (BlocType [] blocs) {
         getBlocType(blocs).afficher();
     }

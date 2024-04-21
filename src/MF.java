@@ -1,4 +1,6 @@
 import java.util.Observer;
+import java.util.Vector;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -6,6 +8,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.Observable;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,7 +21,7 @@ public class MF extends JFrame implements Observer{
     
     Niveau niveau;
     JLabel tab [][][]=null;
-    ImageIcon images[] = null;
+    HashMap<String, ImageIcon> images = null;
 
     public MF (Niveau niv) {
         niveau=niv;
@@ -53,13 +56,12 @@ public class MF extends JFrame implements Observer{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
-        String[] textures = niveau.getTextures();
-        images = new ImageIcon[textures.length + 2];
-        for (int i=0;i<textures.length;i++) {
-            images[i] = new ImageIcon(new ImageIcon( "data/img/"+textures[i]).getImage().getScaledInstance(blockWidth, blockHeight, java.awt.Image.SCALE_FAST));
+        String folder="data/img/";
+        Vector <String> textures = niveau.getTextures(folder);
+        images = new HashMap <String, ImageIcon>();
+        for (int i=0;i<textures.size();i++) {
+            images.put(textures.get(i),new ImageIcon(new ImageIcon( folder+textures.get(i)).getImage().getScaledInstance(blockWidth, blockHeight, java.awt.Image.SCALE_FAST)));
         }
-
-        images[textures.length + 1] = new ImageIcon(new ImageIcon( "data/img/player.png").getImage().getScaledInstance(blockWidth, blockHeight, java.awt.Image.SCALE_FAST));
         
         int offsetX = 0;
         int offsetY = 0;
@@ -111,13 +113,13 @@ public class MF extends JFrame implements Observer{
                         Bloc bloc=niveau.getBloc(i,j,k);
                         if (bloc==null) {
                             if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j && niveau.getJoueur().getZ()==k)
-                                tab[i][j][k].setIcon(images[images.length - 1]);
+                                tab[i][j][k].setIcon(images.get(niveau.getTextureJoueur()));
                             else
                                 tab[i][j][k].setIcon(null);
 
                         }
                         else
-                            tab[i][j][k].setIcon(images[bloc.getIdBlocType()]);
+                            tab[i][j][k].setIcon(images.get(niveau.getTextureBloc(i,j,k)));
                     }
 
             
