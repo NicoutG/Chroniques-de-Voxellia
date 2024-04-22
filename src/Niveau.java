@@ -103,7 +103,7 @@ public class Niveau extends Observable {
                     int numLine=2+z*(tailley+1)+y;
                     line=exps[numLine].split(" ");
                     if (line.length!=taillex) {
-                        System.out.println("Le fichier doit avoir "+taillez+" blocs par ligne");
+                        System.out.println("Le fichier doit avoir "+taillex+" blocs par ligne");
                         return false;
                     }
                     for (int x=0;x<taillex;x++) {
