@@ -128,6 +128,7 @@ public class Niveau extends Observable {
                                     case 4: terrain[x][y][z]=new BlocTeleporteur (indice);break;
                                     case 5: terrain[x][y][z]=new BlocPiston (indice);break;
                                     case 6: terrain[x][y][z]=new BlocEnnemi (indice);break;
+                                    case 7: terrain[x][y][z]=new BlocMortel (indice);break;
                                     default: terrain[x][y][z]=new Bloc (indice);
                                 }
                                 if (!terrain[x][y][z].setParametres(line[x])) {

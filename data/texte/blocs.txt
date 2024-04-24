@@ -19,3 +19,4 @@ Id Nom Type Destructible Matiere Texture
 17 glaceMouvante 1 f g block-ice.png
 18 pierreFragile 0 t p block-blue.png
 19 monstre 6 f p player.png
+20 pics 7 f m block-pics.png

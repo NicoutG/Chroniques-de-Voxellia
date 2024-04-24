@@ -72,3 +72,9 @@ Les ennemis qui suivent le joueur
 
     Paramètre 1 : Id du bloc (Si on veut qu'un mécanisme ne soit activable que par un seul bloc) (-1 si non précisé)
 
+## Type 7
+
+Les blocs mortels au toucher
+
+Aucun paramètres
+
