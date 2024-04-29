@@ -20,3 +20,4 @@ Id Nom Type Destructible Matiere Texture
 18 pierreFragile 0 t p block-blue.png
 19 monstre 6 f p player.png
 20 pics 7 f m block-pics.png
+21 escalier 8 f b block-blue.png
