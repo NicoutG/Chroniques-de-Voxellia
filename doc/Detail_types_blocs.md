@@ -78,3 +78,9 @@ Les blocs mortels au toucher
 
 Aucun paramètres
 
+## Type 8
+
+Les blocs d'escalier
+
+Aucun paramètres
+
