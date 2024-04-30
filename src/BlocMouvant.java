@@ -37,11 +37,13 @@ public class BlocMouvant extends Bloc {
             if (terrain[x2][y2][z2]==null) {
 
                 // deplacement du bloc
-                terrain[x2][y2][z2]=this;
-                terrain[x][y][z]=null;
-                depX=depx;
-                depY=depy;
-                return true;
+                if (z==0 || depz!=0 || terrain[x][y][z-1]!=null) {
+                    terrain[x2][y2][z2]=this;
+                    terrain[x][y][z]=null;
+                    depX=depx;
+                    depY=depy;
+                    return true;
+                }
             }
         }
         return false;

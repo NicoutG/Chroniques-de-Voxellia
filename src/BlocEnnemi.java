@@ -39,7 +39,7 @@ public class BlocEnnemi extends BlocMouvant {
                 for (int i=0;i<4;i++) {
                     xi=pos[i][0];
                     yi=pos[i][1];
-                    if (0<=xi && xi<chemin.length && 0<=yi && yi<chemin[xi].length && ((xi==x && yi==y) || (terrain[xi][yi][z]==null && terrain[xi][yi][z-1]!=null))) {
+                    if (0<=xi && xi<chemin.length && 0<=yi && yi<chemin[xi].length && ((xi==x && yi==y) || (terrain[xi][yi][z]==null && terrain[xi][yi][z-1]!=null && !(terrain[xi][yi][z-1] instanceof BlocMortel)))) {
                         fileX.add(xi);
                         fileY.add(yi);
                         fileVal.add(val);
@@ -104,6 +104,7 @@ public class BlocEnnemi extends BlocMouvant {
                         x+=depx;
                         y+=depy;
                     }
+                    joueur.miseAjour(terrain, blocs);
                 }
             }
 
@@ -117,7 +118,7 @@ public class BlocEnnemi extends BlocMouvant {
                 for (int i=0;i<4;i++) {
                     xi=pos[i][0];
                     yi=pos[i][1];
-                    if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && terrain[xi][yi][z]==null && terrain[xi][yi][z-1]!=null) {
+                    if (0<=xi && xi<terrain.length && 0<=yi && yi<terrain[xi].length && terrain[xi][yi][z]==null && terrain[xi][yi][z-1]!=null && !(terrain[xi][yi][z-1] instanceof BlocMortel)) {
                         depPos.add(i);
                     }
                 }
