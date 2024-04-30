@@ -73,7 +73,7 @@ public class Bloc {
         return text[0]+"-"+num+"."+text[1];
     }
 
-    public int getNumImage (BlocType [] blocs) {
+    private int getNumImage (BlocType [] blocs) {
         int nbImages=getBlocType(blocs).getNbImages();
         if (nbImages==1)
             return -1;

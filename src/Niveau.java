@@ -6,8 +6,9 @@ import java.util.Observable;
 import java.util.Vector;
 
 public class Niveau extends Observable {
-    private BlocType [] blocs=null; // les différents types de blocs
+    private BlocType [] blocs=null;
     private Bloc [][][] terrain=null;
+    private Bloc defaultBloc=null;
     private int taillex=0;
     private int tailley=0;
     private int taillez=0;
@@ -79,8 +80,8 @@ public class Niveau extends Observable {
             
             // Chargement des dimensions du terrain
             String [] line=exps[0].split(" ");
-            if (line.length!=3) {
-                System.out.println("La première ligne doit posséder les 3 dimensions du terrain");
+            if (line.length<3 || 4<line.length) {
+                System.out.println("La première ligne doit posséder les 3 dimensions du terrain et ou le bloc par defaut");
                 return false;
             }
             taillex=Integer.parseInt(line[0]);
@@ -90,6 +91,11 @@ public class Niveau extends Observable {
                 System.out.println("Les dimensions du terrain doivent etre positive");
                 return false;
             }
+            if (line.length==4)
+                defaultBloc=new Bloc (Integer.parseInt(line[3]));
+            else
+                defaultBloc=null;
+            
             joueur.setPos(0,0,0);
             if (exps.length<taillez*tailley+1) {
                 System.out.println("Le fichier doit avoir "+(taillez*tailley+1)+" lignes");
@@ -226,6 +232,10 @@ public class Niveau extends Observable {
         // mise à jour du joueur
         joueur.miseAjour(terrain, blocs);
 
+        // mise à jour du bloc par défaut
+        if (defaultBloc!=null)
+            defaultBloc.miseAjour(terrain, blocs, 0, 0, 0, joueur);
+
         // mise à jour des blocs
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
@@ -277,9 +287,14 @@ public class Niveau extends Observable {
     }
 
     public String getTextureBloc (int x, int y, int z) {
-        if (0<=x && x<terrain.length && 0<=y && y<terrain[x].length && 0<=z && z<terrain[x][y].length && terrain[x][y][z]!=null)
-            return terrain[x][y][z].getTexture(terrain, blocs, x, y, z, joueur);
-        return "default.jpg";
+        if (0<=x && x<terrain.length && 0<=y && y<terrain[x].length && 0<=z && z<terrain[x][y].length) {
+            if (terrain[x][y][z]!=null)
+                return terrain[x][y][z].getTexture(terrain, blocs, x, y, z, joueur);
+            else
+                if (defaultBloc!=null)
+                    return defaultBloc.getTexture(terrain, blocs, x, y, z, joueur);
+        }
+        return "default";
     }
 
     public String getTextureJoueur () {
