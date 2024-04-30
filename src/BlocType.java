@@ -8,11 +8,12 @@ public class BlocType {
                             2 bloc de levier
                             3 bloc de plaque
                         */
-    private String texture = "default.jpg"; // le chemin de la texture
+    private String texture = "default.jpg"; // le chemin de la texture par défaut
+    private int nbImages=1;
 
     public boolean charger (String exp) {
         String [] exps=exp.split(" ");
-        if (exps.length!=6) {
+        if (exps.length<6 || 7<exps.length) {
             System.out.println("Mauvais nombre d'arguments");
             return false;
         }
@@ -22,6 +23,15 @@ public class BlocType {
         destructible=exps[3].equals("t");
         matiere=exps[4].charAt(0);
         texture=exps[5];
+        if (exps.length==7) {
+            nbImages=Integer.parseInt(exps[6]);
+            if (nbImages<=0) {
+                System.out.println("Le nombre d'images doit être strictement positif");
+                return false;
+            }
+        }
+        else 
+            nbImages=1;
         return true;
     }
 
@@ -47,6 +57,10 @@ public class BlocType {
 
     public String getTexture () {
         return texture;
+    }
+
+    public int getNbImages () {
+        return nbImages;
     }
 
     public void afficher () {

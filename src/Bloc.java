@@ -1,5 +1,9 @@
+
+
 public class Bloc {
     private int idBlocType=1;
+    private long tempsImage=0;
+    private int numImage;
 
     public Bloc (int id) {
         idBlocType=id;
@@ -62,7 +66,22 @@ public class Bloc {
     }
 
     public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
-        return getBlocType(blocs).getTexture();
+        int num=getNumImage(blocs);
+        if (num==-1)
+            return getBlocType(blocs).getTexture();
+        String [] text=getBlocType(blocs).getTexture().split("\\.");
+        return text[0]+"-"+num+"."+text[1];
+    }
+
+    public int getNumImage (BlocType [] blocs) {
+        int nbImages=getBlocType(blocs).getNbImages();
+        if (nbImages==1)
+            return -1;
+        if (System.currentTimeMillis()-tempsImage>=100) {
+            tempsImage=System.currentTimeMillis();
+            numImage=(numImage+1)%nbImages;
+        }
+        return numImage;
     }
 
     public void afficher (BlocType [] blocs) {
