@@ -2,7 +2,7 @@ Id Nom Type Destructible Matiere Texture
 0 blue-blocl-break 0 t m blue-block-break.png
 1 Teleporter 4 f p antik-block.png
 2 black-block 0 f m black-block.png
-3 block-levierF 2 f m block-levierF.png
+3 block-levierF 2 f m block-levier.png
 4 stone-block-break 0 t p stone-block-break.png
 5 block-piston 5 f m block-piston.png
 6 wood-3-plank 0 f b wood-3-plank.png
@@ -28,8 +28,8 @@ Id Nom Type Destructible Matiere Texture
 26 blue-holder-rope-2 0 f m blue-holder-rope-2.png
 27 blue-holder-rope-3 0 f m blue-holder-rope-3.png
 28 blue-holder 0 f m blue-holder.png
-29 blue-stairs-left 0 f m blue-stairs-left.png
-30 blue-stairs-right 0 f m blue-stairs-right.png
+29 blue-stairs-left 8 f m blue-stairs-left.png
+30 blue-stairs-right 8 f m blue-stairs-right.png
 31 bridge-left 0 f m bridge-left.png
 32 bridge-right 0 f m bridge-right.png
 33 brown-block 0 f m brown-block.png
@@ -62,3 +62,8 @@ Id Nom Type Destructible Matiere Texture
 60 stone-block-slab 0 f p stone-block-slab.png
 61 stone-block 0 f p stone-block.png
 62 table-covered 1 t b table-covered.png
+63 glass-stained-2 0 f m glass-stained-2.png
+64 glass-stained-3 0 f m glass-stained-3.png
+65 glass-stained-4 0 f m glass-stained-4.png
+66 hedge 0 f t hedge.png
+67 table-plate 0 f b table-plate.png
