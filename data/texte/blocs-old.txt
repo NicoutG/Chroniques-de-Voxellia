@@ -1,0 +1,22 @@
+Id Nom Type Destructible Matiere Texture
+0 pierre 0 f p block-blue.png
+1 metal 0 f m  block-white.png
+2 levier 2 f m  block-levier.png
+3 caisseMouvante 1 f b block-wood.png
+4 BlocGlace 0 f g block-ice.png
+5 plaque 3 f m block-red.png
+6 teleporteur 4 f m block-purple.png
+7 herbe 0 f t block-grass.png
+8 dac 0 f m block-dac.png
+9 blocPiston 5 f m block-piston.png
+10 piston0 0 f m block-piston0.png
+11 piston1 0 f m block-piston1.png
+12 piston2 0 f m block-piston2.png
+13 piston3 0 f m block-piston3.png
+14 piston4 0 f m block-piston4.png
+15 piston5 0 f m block-piston5.png
+16 1 f f block-white.png
+17 glaceMouvante 1 f g block-ice.png
+18 pierreFragile 0 t p block-blue.png
+19 monstre 6 f p player.png
+20 pics 7 f m block-pics.png
