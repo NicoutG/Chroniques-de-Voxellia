@@ -37,11 +37,21 @@ public class BlocMouvant extends Bloc {
             if (terrain[x2][y2][z2]==null) {
 
                 // deplacement du bloc
-                if (z==0 || depz!=0 || terrain[x][y][z-1]!=null) {
+                if (z==0 || depz!=0 || terrain[x][y][z-1]!=null || num==2) {
                     terrain[x2][y2][z2]=this;
                     terrain[x][y][z]=null;
                     depX=depx;
                     depY=depy;
+                    if (z+1<terrain[x][y].length) {
+                        if (terrain[x][y][z+1]==null) {
+                            if (joueur.getX()==x && joueur.getY()==y && joueur.getZ()==z+1)
+                                joueur.deplacer(terrain, blocs, depx, depy, depz);
+                        }
+                        else {
+                            terrain[x][y][z+1].deplacer(terrain, blocs, x, y, z+1, depx, depy, depz, joueur, 2);
+                            System.out.println("yep");
+                        }
+                    }
                     return true;
                 }
             }
