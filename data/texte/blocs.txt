@@ -67,5 +67,5 @@ Id Nom Type Destructible Matiere Texture
 65 glass-stained-4 0 f m glass-stained-4.png
 66 hedge 0 f t hedge.png
 67 table-plate 0 f b table-plate.png
-68 tnt 9 f b block-levier.png
-69 presure-plate 3 f m block-levier.png
+68 tnt 9 f b tnt.png
+69 pressure-plate 3 f m pressure-plate.png
