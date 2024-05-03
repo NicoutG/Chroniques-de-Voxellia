@@ -161,4 +161,17 @@ public class BlocTeleporteur extends BlocActivable {
             }
         }
     }
+
+    @Override
+    public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
+        if (getEtat()) {
+            String texture=super.getTexture(terrain, blocs, x, y, z, joueur);
+            String [] text=texture.split("\\.");
+            return text[0]+"-T."+text[1];
+        }
+        String texture=getBlocType(blocs).getTexture();
+        String [] text=texture.split("\\.");
+        return text[0]+"-F."+text[1];
+    }
+
 }
