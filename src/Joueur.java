@@ -42,12 +42,12 @@ public class Joueur {
         mort=m;
     }
 
-    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz) {
+    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz, int num) {
         int x2=x+depx;
         int y2=y+depy;
         int z2=z+depz;
         if (0<=x2 && x2<terrain.length && 0<=y2 && y2<terrain[x2].length && 0<=z2 && z2<terrain[x2][y2].length) {
-            if ((z==0 || depz!=0 || (terrain[x][y][z-1]!=null && !(terrain[x][y][z-1] instanceof BlocMortel))) && (terrain[x2][y2][z2]==null || terrain[x2][y2][z2].deplacer(terrain,blocs,x2,y2,z2,depx,depy,depz,this,0))) {
+            if ((z==0 || depz!=0 || num==2 || (terrain[x][y][z-1]!=null && !(terrain[x][y][z-1] instanceof BlocMortel))) && (terrain[x2][y2][z2]==null || terrain[x2][y2][z2].deplacer(terrain,blocs,x2,y2,z2,depx,depy,depz,this,0))) {
                 depX=depx;
                 depY=depy;
                 x=x2;
@@ -71,7 +71,7 @@ public class Joueur {
             tempsMaj=System.currentTimeMillis();
 
             // application de la gravité
-            if (deplacer(terrain,blocs,0,0,-1)) {
+            if (deplacer(terrain,blocs,0,0,-1,1)) {
                 if (z>0 && terrain[x][y][z-1]!=null)
                     terrain[x][y][z-1].impacter(terrain,blocs,x,y,z-1,this);
             }
@@ -80,7 +80,7 @@ public class Joueur {
                     // si le bloc est sur un bloc de glace, il glisse
                     boolean avancer=(z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g');
                     if (avancer) {
-                        avancer=deplacer(terrain, blocs,depX,depY,0);
+                        avancer=deplacer(terrain, blocs,depX,depY,0,0);
                     }
                     if (!avancer) {
                         depX=0;
@@ -95,10 +95,10 @@ public class Joueur {
         // si le joueur a les pieds au sol et qu'il ne glisse pas sur de la glace
         if (z>0 && terrain[x][y][z-1]!=null && ((depX==0 && depY==0) || terrain[x][y][z-1].getBlocType(blocs).getMatiere()!='g'))
             switch (action) {
-                case "haut": return deplacer(terrain,blocs, 0, -1, 0);
-                case "bas": return deplacer(terrain,blocs, 0, 1, 0);
-                case "gauche": return deplacer(terrain,blocs, -1, 0, 0);
-                case "droite": return deplacer(terrain,blocs, 1, 0, 0);
+                case "haut": return deplacer(terrain,blocs, 0, -1, 0,0);
+                case "bas": return deplacer(terrain,blocs, 0, 1, 0,0);
+                case "gauche": return deplacer(terrain,blocs, -1, 0, 0,0);
+                case "droite": return deplacer(terrain,blocs, 1, 0, 0,0);
             }
         return false;
     }

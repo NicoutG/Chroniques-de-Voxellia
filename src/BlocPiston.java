@@ -46,7 +46,7 @@ public class BlocPiston extends BlocActivable {
 
                 // déplacement du joueur
                 if (xi==joueur.getX() && yi==joueur.getY() && zi==joueur.getZ())
-                    joueur.deplacer(terrain,blocs,depxi,depyi,depzi);
+                    joueur.deplacer(terrain,blocs,depxi,depyi,depzi,2);
             
             // placement du bloc de piston
             if (terrain[xi][yi][zi]==null)

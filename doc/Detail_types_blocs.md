@@ -44,7 +44,7 @@ Les blocs de téléportation
 
 3 paramètres
 
-    Paramètre 1 : Etat par défautt du téléporteur (t = activé, f = désactivé)
+    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : Id de téléportation (pour repérer le téléporteur de destination)
 
@@ -54,7 +54,7 @@ Les blocs de piston
 
 3 paramètres
 
-    Paramètre 1 : Etat par défautt du téléporteur (t = activé, f = désactivé)
+    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : L'orientation du piston
                     - 0 : haut
@@ -70,7 +70,7 @@ Les ennemis qui suivent le joueur
 
 0 à 1 paramètres
 
-    Paramètre 1 : Id du bloc (Si on veut qu'un mécanisme ne soit activable que par un seul bloc) (-1 si non précisé)
+    Paramètre 1 : Id du bloc (Si on veut qu'un mécanisme ne soit activable que par un seul bloc) (-1 par défaut)
 
 ## Type 7
 
@@ -83,4 +83,15 @@ Aucun paramètres
 Les blocs d'escalier
 
 Aucun paramètres
+
+## Type 9
+
+Les blocs explosifs
+
+3 à 4 paramètres
+
+    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
+    Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
+    Paramètre 3 : rayon d'explosion (0 explose seulement le bloc)
+    Paramètre 4 : Délai avant l'explosion en ms (0 par défaut)
 
