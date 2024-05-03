@@ -36,7 +36,7 @@ Id Nom Type Destructible Matiere Texture
 34 crate-metal 1 f m crate-metal.png
 35 crate-wood 1 f b crate-wood.png
 36 player-enemy 6 f p enemy.png
-37 fire 1 f f fire.png 3
+37 fire 0 f f fire.png 3
 38 water-bridge-left 0 f m water-bridge-left.png
 39 water-blue-holder 0 f m water-blue-holder.png
 40 glass-stained 0 f m glass-stained.png
@@ -67,3 +67,5 @@ Id Nom Type Destructible Matiere Texture
 65 glass-stained-4 0 f m glass-stained-4.png
 66 hedge 0 f t hedge.png
 67 table-plate 0 f b table-plate.png
+68 tnt 9 f b block-levier.png
+69 presure-plate 3 f m block-levier.png

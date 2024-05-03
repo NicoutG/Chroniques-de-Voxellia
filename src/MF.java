@@ -56,7 +56,7 @@ public class MF extends JFrame implements Observer{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
-        String folder="data/img/";
+        String folder="data/img/blocs/";
         Vector <String> textures = niveau.getTextures(folder);
         images = new HashMap <String, ImageIcon>();
         for (int i=0;i<textures.size();i++) {
