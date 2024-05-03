@@ -79,6 +79,13 @@ public class BlocEnnemi extends BlocMouvant {
     }
 
     @Override
+    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur, int num) {
+        if (num==0)
+            return false;  
+        return super.deplacer(terrain, blocs, x, y, z, depx, depy, depz, joueur, num);    
+    }
+
+    @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
 
         // l'ennemi meurt lorsqu'il chute ou qu'il a un bloc mouvant au dessus de lui
@@ -100,7 +107,7 @@ public class BlocEnnemi extends BlocMouvant {
                 if (mouvementPos) {
                     int depx=dep[depPos][0];
                     int depy=dep[depPos][1];
-                    if (deplacer(terrain, blocs, x, y, z, depx, depy, 0, joueur)) {
+                    if (deplacer(terrain, blocs, x, y, z, depx, depy, 0, joueur,1)) {
                         x+=depx;
                         y+=depy;
                     }
@@ -129,7 +136,7 @@ public class BlocEnnemi extends BlocMouvant {
                     int valDep=depPos.get(rand.nextInt(depPos.size()));
                     int depx=dep[valDep][0];
                     int depy=dep[valDep][1];
-                    if (deplacer(terrain, blocs, x, y, z, depx, depy, 0, joueur)) {
+                    if (deplacer(terrain, blocs, x, y, z, depx, depy, 0, joueur,1)) {
                         x+=depx;
                         y+=depy;
                     }

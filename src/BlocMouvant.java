@@ -29,7 +29,7 @@ public class BlocMouvant extends Bloc {
     }
 
     @Override
-    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur) {
+    public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur, int num) {
         int x2=x+depx;
         int y2=y+depy;
         int z2=z+depz;
@@ -57,7 +57,7 @@ public class BlocMouvant extends Bloc {
             tempsMaj=System.currentTimeMillis();
 
             //application de la gravité
-            if (deplacer(terrain,blocs,x,y,z,0,0,-1,joueur)) {
+            if (deplacer(terrain,blocs,x,y,z,0,0,-1,joueur,1)) {
                 if (z>1 && terrain[x][y][z-2]!=null)
                     terrain[x][y][z-2].impacter(terrain,blocs,x,y,z-2,joueur);
             }
@@ -66,7 +66,7 @@ public class BlocMouvant extends Bloc {
                     // si le bloc est sur un bloc de glace ou si c'est un bloc de glace, il glisse
                     boolean avancer=(getBlocType(blocs).getMatiere()=='g'  || (z>0 && terrain[x][y][z-1]!=null && terrain[x][y][z-1].getBlocType(blocs).getMatiere()=='g'));
                     if (avancer) {
-                        avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur);
+                        avancer=deplacer(terrain, blocs, x, y, z, depX, depY, 0, joueur,1);
                     }
                     if (!avancer) {
                         depX=0;
