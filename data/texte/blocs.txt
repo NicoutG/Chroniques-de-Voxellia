@@ -45,9 +45,9 @@ Id Nom Type Destructible Matiere Texture
 43 ice-block 1 f g ice-block.png
 44 lava 7 f m lava.png
 45 table 1 t b table.png
-46 pot-flower 0 f b pot-flower.png
-47 pot-small 0 f b pot-small.png
-48 pot 0 f b pot.png
+46 pot-flower 1 f b pot-flower.png
+47 pot-small 1 f b pot-small.png
+48 pot 1 f b pot.png
 49 purple-block 0 f m purple-block.png
 50 red-block 0 f m red-block.png
 51 shelve-books-1 0 f b shelve-books-1.png

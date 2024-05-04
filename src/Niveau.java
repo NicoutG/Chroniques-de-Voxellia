@@ -155,7 +155,12 @@ public class Niveau extends Observable {
     }
 
     public boolean actionJoueur (String action) {
-        return joueur.actionJoueur(terrain,blocs,action);
+        if (!getVictoire()) {
+            boolean res=joueur.actionJoueur(terrain,blocs,action);
+            miseAjourTerrain();
+            return res;
+        }
+        return false;
     }
 
     public void afficherBlocs () {

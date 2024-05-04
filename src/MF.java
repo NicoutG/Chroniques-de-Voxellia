@@ -98,7 +98,6 @@ public class MF extends JFrame implements Observer{
                     case KeyEvent.VK_LEFT: niveau.actionJoueur("gauche");break;
                     case KeyEvent.VK_RIGHT: niveau.actionJoueur("droite");break;
                 }
-                niveau.miseAjourTerrain();
             }
         });
         requestFocus();
