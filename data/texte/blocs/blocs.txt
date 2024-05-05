@@ -72,3 +72,9 @@ Id Nom Type Destructible Matiere Texture
 70 red-carpet 0 f p red-carpet-block.png
 71 red-golden-carpet 0 f p red-golden-carpet-block.png
 72 sand-block 0 f p sand-block.png
+73 piston0 0 f m block-piston0.png
+74 piston1 0 f m block-piston1.png
+75 piston2 0 f m block-piston2.png
+76 piston3 0 f m block-piston3.png
+77 piston4 0 f m block-piston4.png
+78 piston5 0 f m block-piston5.png
