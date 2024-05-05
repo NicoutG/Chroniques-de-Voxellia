@@ -1,6 +1,6 @@
 Id Nom Type Destructible Matiere Texture
 0 blue-blocl-break 0 t m blue-block-break.png
-1 teleporter 4 f p antik-block.png 2
+1 teleporter 4 f p antik-block.png 4
 2 black-block 0 f m black-block.png
 3 block-levierF 2 f m block-levier.png
 4 stone-block-break 0 t p stone-block-break.png
@@ -69,3 +69,6 @@ Id Nom Type Destructible Matiere Texture
 67 table-plate 0 f b table-plate.png
 68 tnt 9 f b tnt.png 2
 69 pressure-plate 3 f m pressure-plate.png
+70 red-carpet 0 f p red-carpet-block.png
+71 red-golden-carpet 0 f p red-golden-carpet-block.png
+72 sand-block 0 f p sand-block.png
