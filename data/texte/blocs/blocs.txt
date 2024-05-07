@@ -78,3 +78,4 @@ Id Nom Type Destructible Matiere Texture
 76 piston3 0 f m block-piston3.png
 77 piston4 0 f m block-piston4.png
 78 piston5 0 f m block-piston5.png
+79 dirt-block 0 f p dirt-block.png
