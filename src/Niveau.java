@@ -140,7 +140,7 @@ public class Niveau extends Observable {
                                     default: terrain[x][y][z]=new Bloc (indice);
                                 }
                                 if (!terrain[x][y][z].setParametres(line[x])) {
-                                    System.out.println("Parametres invalides pour le bloc x:"+x+" y:"+y+" z:"+z);
+                                    System.out.println("Parametres invalides pour le bloc x:"+x+" y:"+y+" z:"+z+" pour "+line[x]);
                                     return false;
                                 }
                             }
