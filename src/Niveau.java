@@ -57,7 +57,7 @@ public class Niveau extends Observable {
         }
     }
 
-    private boolean chargerTerrain (String fichier) {
+    public boolean chargerTerrain (String fichier) {
         nomNiveau=fichier;
         joueur.setVictoire(false);
         joueur.setMort(false);
@@ -260,11 +260,12 @@ public class Niveau extends Observable {
         notifyObservers();
     }
 
-    public void lancementNiveau (String fichier) {
-        
-        // chargement du terrain
-        chargerTerrain(fichier);
-
+    public void lancementNiveau () {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
         Thread terrainUpdateThread = new Thread(() -> {
             while (!getVictoire()) {
                 
