@@ -254,10 +254,14 @@ public class Niveau extends Observable {
         
         // on recharge le niveau lorsque le joueur meurt
         if (getMort())
-            chargerTerrain(nomNiveau);
+            recommencer();
 
         setChanged();
         notifyObservers();
+    }
+
+    public void recommencer () {
+        chargerTerrain(nomNiveau);
     }
 
     public void lancementNiveau () {
