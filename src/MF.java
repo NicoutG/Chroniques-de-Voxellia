@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Observable;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -86,7 +87,6 @@ public class MF extends JFrame implements Observer{
 
                 }
             }
-        update(niveau,null);
     }
 
     private void addEC () {
