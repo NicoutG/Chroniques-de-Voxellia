@@ -53,7 +53,7 @@ public class MF extends JFrame implements Observer{
         jp.add(jpC);
         add(jp);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         
         String folder="data/img/blocs/";
