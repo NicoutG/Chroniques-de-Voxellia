@@ -1,3 +1,4 @@
+Frozen Harbour;level1.txt;level1.jpg;0
 Locked Temple;level3.txt;level3.jpg;0
 Cross the River;level2.txt;level2.jpg;0
 Explosive Escape;level4.txt;level4.jpg;0
