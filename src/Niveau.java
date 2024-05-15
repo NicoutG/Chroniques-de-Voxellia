@@ -14,6 +14,7 @@ public class Niveau extends Observable {
     private int taillez=0;
     private Joueur joueur=new Joueur();
     private String nomNiveau;
+    private boolean fin=false;
 
     public boolean chargerBlocs(String fichier) {
         try {
@@ -58,9 +59,10 @@ public class Niveau extends Observable {
     }
 
     public boolean chargerTerrain (String fichier) {
-        nomNiveau=fichier;
         joueur.setVictoire(false);
         joueur.setMort(false);
+        fin=false;
+        nomNiveau=fichier;
         if (blocs==null || blocs.length<1) {
             System.out.println("Aucun bloc chargé");
             return false;
@@ -215,12 +217,6 @@ public class Niveau extends Observable {
         return taillez;
     }
 
-    public Bloc getBloc (int x, int y, int z) {
-        if (x<0 || taillex<=x || y<0 || tailley<=y || z<0 || taillez<=z)
-            return null;
-        return terrain[x][y][z];
-    }
-
     public Joueur getJoueur () {
         return joueur;
     }
@@ -264,14 +260,21 @@ public class Niveau extends Observable {
         chargerTerrain(nomNiveau);
     }
 
+    public void quitter () {
+        fin=true;
+    }
+
     public void lancementNiveau () {
+        joueur.setVictoire(false);
+        joueur.setMort(false);
+        fin=false;
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
         Thread terrainUpdateThread = new Thread(() -> {
-            while (!getVictoire()) {
+            while (!getVictoire() && !fin) {
                 
                 // mise à jour du terrain à intervalles réguliers
                 miseAjourTerrain();

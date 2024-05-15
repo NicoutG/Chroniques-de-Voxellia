@@ -3,9 +3,12 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -20,9 +23,9 @@ import java.awt.Insets;
 
 public class MF extends JFrame implements Observer{
     
-    Niveau niveau;
-    JLabel tab [][][]=null;
-    HashMap<String, ImageIcon> images = null;
+    private Niveau niveau;
+    private JLabel tab [][][]=null;
+    private HashMap<String, ImageIcon> images = null;
 
     public MF (Niveau niv) {
         niveau=niv;
@@ -49,10 +52,26 @@ public class MF extends JFrame implements Observer{
 
         JPanel jp=new JPanel();
         JPanel jpC=new JPanel();
+        JPanel jpB=new JPanel();
         jpC.setLayout(null);
         jpC.setPreferredSize(new Dimension(layoutSize, layoutSize));
+        JButton btnRecommencer = new JButton("Recommencer");
+        btnRecommencer.addActionListener(e -> {
+            niveau.recommencer();
+            requestFocusInWindow(); // Redonne le focus au panneau principal
+        });
+        JButton btnQuitter = new JButton("Quitter");
+        btnQuitter.addActionListener(e -> {
+            niveau.quitter();
+            this.dispose();
+        });
+        jpB.add(btnRecommencer);
+        jpB.add(btnQuitter);
+
+        jp.add(jpB);
         jp.add(jpC);
         add(jp);
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -114,8 +133,9 @@ public class MF extends JFrame implements Observer{
                         else
                             tab[i][j][k].setIcon(images.get(niveau.getTextureBloc(i,j,k)));
                     }
-
-            
+        }
+        else {
+            this.dispose();
         }
     }
 }
