@@ -79,3 +79,9 @@ Id Nom Type Destructible Matiere Texture
 77 piston4 0 f m block-piston4.png
 78 piston5 0 f m block-piston5.png
 79 dirt-block 0 f p dirt-block.png
+80 bird 0 f p bird.png 4
+81 wood 0 f b wood.png
+82 leaves 0 f b leaves.png
+83 water-base 7 f e water-base.png 2
+84 water-fall 7 f e water-fall.png 3
+85 water-moving 7 f e water-moving.png 3
