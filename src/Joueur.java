@@ -1,12 +1,53 @@
+
+
+/**
+ * Classe Joueur permet la gestion du personnage.
+ */
+
 public class Joueur {
+
+    /**
+     * x contient la coordonnée x du joueur.
+     */
     private int x;
+
+    /**
+     * y contient la coordonnée y du joueur.
+     */
     private int y;
+
+    /**
+     * z contient la coordonnée z du joueur.
+     */
     private int z;
+
+    /**
+     * depX contient le déplacement précédent sur x du joueur.
+     */
     private int depX=0;
+
+    /**
+     * depY contient le déplacement précédent sur y du joueur.
+     */
     private int depY=0;
+
+    /**
+     * victoire contient si le joueur a réussi le niveau.
+     */
     private boolean victoire;
+
+    /**
+     * mort contient si le joueur est mort.
+     */
     private boolean mort;
+
+    /**
+     * tempsMaj contient l'instant de la dernière mise à jour du joueur.
+     */
     private long tempsMaj=System.currentTimeMillis();
+
+    private long tempsImage=0;
+    private int numImage;
 
     public void setPos(int posx, int posy, int posz) {
         x=posx;
@@ -104,7 +145,19 @@ public class Joueur {
     }
 
     public String getTexture (Bloc [][][] terrain, BlocType [] blocs) {
-        return "player.png";
+        int num=getNumImage();
+        return "player-"+num+".png";
+    }
+
+    private int getNumImage () {
+        int nbImages=4;
+        if (nbImages==1)
+            return -1;
+        if (System.currentTimeMillis()-tempsImage>=100) {
+            tempsImage=System.currentTimeMillis();
+            numImage=(numImage+1)%nbImages;
+        }
+        return numImage;
     }
 
 }

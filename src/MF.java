@@ -128,10 +128,7 @@ public class MF extends JFrame implements Observer{
             for (int k=0;k<niveau.getTaillez();k++)
                 for (int j=0;j<niveau.getTailley();j++)
                     for (int i=0;i<niveau.getTaillex();i++) {
-                        if (niveau.getJoueur().getX()==i && niveau.getJoueur().getY()==j && niveau.getJoueur().getZ()==k)
-                            tab[i][j][k].setIcon(images.get(niveau.getTextureJoueur()));
-                        else
-                            tab[i][j][k].setIcon(images.get(niveau.getTextureBloc(i,j,k)));
+                        tab[i][j][k].setIcon(images.get(niveau.getTextureBloc(i,j,k)));
                     }
         }
         else {

@@ -5,17 +5,62 @@ import java.text.ParseException;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * Classe Niveau permet de jouer à un niveau.
+ */
+
 public class Niveau extends Observable {
+
+    /**
+     * blocs contient l'ensemble des types de blocs.
+     */
     private BlocType [] blocs=null;
+
+    /**
+     * terrain contient l'ensemble des blocs du terrain.
+     */
     private Bloc [][][] terrain=null;
+
+    /**
+     * defaultBloc contient le bloc par défaut à afficher sur les cases vides.
+     */
     private Bloc defaultBloc=null;
+
+    /**
+     * taillex contient la taille x du terrain.
+     */
     private int taillex=0;
+
+    /**
+     * tailley contient la taille y du terrain.
+     */
     private int tailley=0;
+
+    /**
+     * taillez contient la taille z du terrain.
+     */
     private int taillez=0;
+
+    /**
+     * joueur contient le personnage du joueur.
+     */
     private Joueur joueur=new Joueur();
+
+    /**
+     * nomNiveau contient le nom du niveau à charger.
+     */
     private String nomNiveau;
+
+    /**
+     * fin contient si le joueur souhaite quitter le niveau.
+     */
     private boolean fin=false;
 
+    /**
+     * charge l'ensemble des types de blocs.
+     * @param fichier le nom du fichier qui contient les types de blocs
+     * @return boolean si le chargement a bien été effectué
+     */
     public boolean chargerBlocs(String fichier) {
         try {
             String exp=new String(Files.readAllBytes(Paths.get(fichier)));
@@ -58,6 +103,11 @@ public class Niveau extends Observable {
         }
     }
 
+    /**
+     * charge un terrain
+     * @param fichier le nom du fichier qui contient le terrain
+     * @return boolean si le chargement a bien été effectué
+     */
     public boolean chargerTerrain (String fichier) {
         joueur.setVictoire(false);
         joueur.setMort(false);
@@ -93,6 +143,8 @@ public class Niveau extends Observable {
                 System.out.println("Les dimensions du terrain doivent etre positive");
                 return false;
             }
+
+            // Chargement du bloc par défaut
             if (line.length==4)
                 defaultBloc=new Bloc (Integer.parseInt(line[3]));
             else
@@ -156,6 +208,11 @@ public class Niveau extends Observable {
         }
     }
 
+    /**
+     * Permet au joueur de controler le personnage.
+     * @param action le texte qui décrit l'action du joueur
+     * @return boolean si l'action peut être réalisée
+     */
     public boolean actionJoueur (String action) {
         if (!getVictoire()) {
             boolean res=joueur.actionJoueur(terrain,blocs,action);
@@ -165,6 +222,9 @@ public class Niveau extends Observable {
         return false;
     }
 
+    /**
+     * Affiche les informations de tous les types de blocs.
+     */
     public void afficherBlocs () {
         if (blocs!=null)
             for (int i=0;i<blocs.length;i++) {
@@ -176,6 +236,9 @@ public class Niveau extends Observable {
             System.out.println("Aucun bloc");
     }
 
+    /**
+     * Affiche les informations de tous les blocs du terrain.
+     */
     public void afficherTerrainDetails () {
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
@@ -188,6 +251,9 @@ public class Niveau extends Observable {
         System.out.println("\nDimensions : "+taillex+"/"+tailley+"/"+taillez);
     }
 
+    /**
+     * Affiche le terrain en version console.
+     */
     public void afficherTerrain () {
         for (int z=0;z<taillez;z++) {
             System.out.println("Level "+z+"/"+(taillez-1));
@@ -205,31 +271,50 @@ public class Niveau extends Observable {
         }
     }
 
+    /**
+     * Accesseur de taillex
+     * @return int taillex
+     */
     public int getTaillex () {
         return taillex;
     }
 
+    /**
+     * Accesseur de tailley
+     * @return int tailley
+     */
     public int getTailley () {
         return tailley;
     }
 
+    /**
+     * Accesseur de taillez
+     * @return int taillez
+     */
     public int getTaillez () {
         return taillez;
     }
 
-    public Joueur getJoueur () {
-        return joueur;
-    }
-
+    /**
+     * Retourne si le niveau est réussi
+     * @return boolean si le niveau est réussi
+     */
     public boolean getVictoire () {
         return joueur.getVictoire();
     }
 
-    public boolean getMort () {
+    /**
+     * Retourne si le joueur est mort
+     * @return boolean si le joueur est mort
+     */
+    private boolean getMort () {
         return joueur.getMort();
     }
 
-    public void miseAjourTerrain () {
+    /**
+     * Met à jour le niveau.
+     */
+    private void miseAjourTerrain () {
         
         // mise à jour du joueur
         joueur.miseAjour(terrain, blocs);
@@ -256,24 +341,33 @@ public class Niveau extends Observable {
         notifyObservers();
     }
 
+    /**
+     * Réinitialise le niveau.
+     */
     public void recommencer () {
         chargerTerrain(nomNiveau);
     }
 
+    /**
+     * Arrête le niveau.
+     */
     public void quitter () {
         fin=true;
     }
 
+    /**
+     * Lance le niveau 2 secondes après.
+     */
     public void lancementNiveau () {
         joueur.setVictoire(false);
         joueur.setMort(false);
         fin=false;
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
         Thread terrainUpdateThread = new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
             while (!getVictoire() && !fin) {
                 
                 // mise à jour du terrain à intervalles réguliers
@@ -290,6 +384,11 @@ public class Niveau extends Observable {
         terrainUpdateThread.start();
     }
 
+    /**
+     * Renvoie la liste de toutes les textures à charger
+     * @param folder le chemin vers le dossier qui contient les textures
+     * @return Vector <String> la liste de toutes les textures à charger
+     */
     public Vector <String> getTextures (String folder) {
         File fold=new File (folder);
         Vector <String> textures=new Vector <String> ();
@@ -300,19 +399,25 @@ public class Niveau extends Observable {
         return textures;
     }
 
+    /**
+     * Renvoie la texture du bloc.
+     * @param int x la coordonnée x du bloc
+     * @param int y la coordonnée y du bloc
+     * @param int z la coordonnée z du bloc
+     * @return String la texture du bloc
+     */
     public String getTextureBloc (int x, int y, int z) {
         if (0<=x && x<terrain.length && 0<=y && y<terrain[x].length && 0<=z && z<terrain[x][y].length) {
             if (terrain[x][y][z]!=null)
                 return terrain[x][y][z].getTexture(terrain, blocs, x, y, z, joueur);
             else
-                if (defaultBloc!=null)
-                    return defaultBloc.getTexture(terrain, blocs, x, y, z, joueur);
+                if (x==joueur.getX() && y==joueur.getY() && z==joueur.getZ())
+                    return joueur.getTexture(terrain, blocs);
+                else
+                    if (defaultBloc!=null)
+                        return defaultBloc.getTexture(terrain, blocs, x, y, z, joueur);
         }
         return "default";
-    }
-
-    public String getTextureJoueur () {
-        return joueur.getTexture(terrain, blocs);
     }
     
 }

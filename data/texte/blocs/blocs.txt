@@ -35,7 +35,7 @@ Id Nom Type Destructible Matiere Texture
 33 brown-block 0 f m brown-block.png
 34 crate-metal 1 f m crate-metal.png
 35 crate-wood 1 f b crate-wood.png
-36 player-enemy 6 f p enemy.png
+36 player-enemy 6 f p enemy.png 4
 37 fire 0 f f fire.png 3
 38 water-bridge-left 0 f m water-bridge-left.png
 39 water-blue-holder 0 f m water-blue-holder.png
