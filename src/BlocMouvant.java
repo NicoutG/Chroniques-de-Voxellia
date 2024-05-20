@@ -1,13 +1,43 @@
+
+/**
+ * Classe BlocMouvant permet la gestion des blocs mouvants.
+ */
+
 public class BlocMouvant extends Bloc {
-    protected int idBloc=0; // l'identifiant relatif à une plaque d'activation
+
+    /**
+     * idBloc contient un identifiant de bloc pour les activations de plaques.
+     */
+    protected int idBloc=0;
+
+    /**
+     * depX contient le déplacement précédent sur x du bloc.
+     */
     private int depX=0;
+
+    /**
+     * depY contient le déplacement précédent sur y du bloc.
+     */
     private int depY=0;
+
+    /**
+     * tempsMaj contient l'instant de la dernière mise à jour de la position du bloc.
+     */
     private long tempsMaj=System.currentTimeMillis();
 
+    /**
+     * Constructeur de la classe
+     * @param id l'index du type de bloc correspondant dans le tableau
+     */
     public BlocMouvant (int id) {
         super(id);
     }
 
+    /**
+     * Charge les paramètres du bloc à partir d'une chaine de caractères.
+     * @param params la chaine qui contient les informations sur les paramètres du bloc
+     * @return boolean si le chargement des paramètres a bien été effectué
+     */
     @Override
     public boolean setParametres (String params) {
         String [] paramList=params.split("/");
@@ -20,14 +50,28 @@ public class BlocMouvant extends Bloc {
         return true;
     }
 
-    public int getIdPlaque () {
+    /**
+     * accesseur de idBloc
+     * @return int un identifiant de bloc pour les activations de plaques
+     */
+    public int getIdBloc () {
         return idBloc;
     }
 
-    public void setIdPlaque (int id) {
-        idBloc=id;
-    }
-
+    /**
+     * Envoie une requête de déplacement au bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param depx le déplacement x du bloc
+     * @param depy le déplacement y du bloc
+     * @param depz le déplacement z du bloc
+     * @param joueur le joueur qui joue sur le niveau
+     * @param num identifie l'objet qui appelle la fonction
+     * @return boolean si le bloc a pu effectuer le déplacement
+     */
     @Override
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur, int num) {
         int x2=x+depx;
@@ -57,6 +101,15 @@ public class BlocMouvant extends Bloc {
         return false;
     }
 
+    /**
+     * Met à jour le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
 
@@ -85,6 +138,10 @@ public class BlocMouvant extends Bloc {
         super.miseAjour(terrain, blocs, x, y, z, joueur);
     }
 
+    /**
+     * Affiche les informations du bloc.
+     * @param blocs la liste des types de blocs
+     */
     @Override
     public void afficher (BlocType [] blocs) {
         super.afficher(blocs);

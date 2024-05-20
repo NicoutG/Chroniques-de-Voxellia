@@ -57,7 +57,7 @@ public class Niveau extends Observable {
     private boolean fin=false;
 
     /**
-     * charge l'ensemble des types de blocs.
+     * Charge l'ensemble des types de blocs.
      * @param fichier le nom du fichier qui contient les types de blocs
      * @return boolean si le chargement a bien été effectué
      */
@@ -104,7 +104,7 @@ public class Niveau extends Observable {
     }
 
     /**
-     * charge un terrain
+     * Charge un terrain.
      * @param fichier le nom du fichier qui contient le terrain
      * @return boolean si le chargement a bien été effectué
      */
@@ -296,7 +296,7 @@ public class Niveau extends Observable {
     }
 
     /**
-     * Retourne si le niveau est réussi
+     * Retourne si le niveau est réussi.
      * @return boolean si le niveau est réussi
      */
     public boolean getVictoire () {
@@ -304,7 +304,7 @@ public class Niveau extends Observable {
     }
 
     /**
-     * Retourne si le joueur est mort
+     * Retourne si le joueur est mort.
      * @return boolean si le joueur est mort
      */
     private boolean getMort () {
@@ -385,7 +385,7 @@ public class Niveau extends Observable {
     }
 
     /**
-     * Renvoie la liste de toutes les textures à charger
+     * Renvoie la liste de toutes les textures à charger.
      * @param folder le chemin vers le dossier qui contient les textures
      * @return Vector <String> la liste de toutes les textures à charger
      */

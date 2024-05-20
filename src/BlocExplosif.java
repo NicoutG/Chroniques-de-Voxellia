@@ -1,12 +1,38 @@
+
+/**
+ * Classe BlocExplosif permet la gestion des blocs explosifs.
+ */
+
 public class BlocExplosif extends BlocActivable {
+
+    /**
+     * rayon contient le rayon d'explosion (explosion cubique).
+     */
     private int rayon=0;
+
+    /**
+     * delai contient le délai entre l'activation du bloc et l'explosion en ms.
+     */
     private int delai=0;
+
+    /**
+     * tempsExplosion contient l'instant d'activation du bloc.
+     */
     private long tempsExplosion=System.currentTimeMillis();
 
+    /**
+     * Constructeur de la classe
+     * @param id l'index du type de bloc correspondant dans le tableau
+     */
     public BlocExplosif (int id) {
         super(id);
     }
 
+    /**
+     * Charge les paramètres du bloc à partir d'une chaine de caractères.
+     * @param params la chaine qui contient les informations sur les paramètres du bloc
+     * @return boolean si le chargement des paramètres a bien été effectué
+     */
     @Override
     public boolean setParametres (String params) {
         String [] paramList=params.split("/");
@@ -24,15 +50,42 @@ public class BlocExplosif extends BlocActivable {
         return true;
     }
 
+    /**
+     * Active le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     public void activation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(true);
         tempsExplosion=System.currentTimeMillis();
     }
 
+    /**
+     * Désactive le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     public void desactivation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(false);
     }
 
+    /**
+     * Met à jour le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         super.miseAjour(terrain,blocs,x,y,z,joueur);
@@ -43,6 +96,15 @@ public class BlocExplosif extends BlocActivable {
         }
     }
 
+    /**
+     * Détruit les blocs destructibles dans le rayon d'explosion du bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     public void explosion (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         terrain[x][y][z]=null;
         for (int i=Math.max(0,x-rayon);i<Math.min(x+rayon+1,terrain.length);i++)
@@ -52,6 +114,16 @@ public class BlocExplosif extends BlocActivable {
                         terrain[i][j][k]=null;            
     }
 
+    /**
+     * Renvoie la texture actuelle du bloc.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     * @return String la texture actuelle du bloc
+     */
     @Override
     public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         if (getEtat()) {
@@ -62,6 +134,17 @@ public class BlocExplosif extends BlocActivable {
         String texture=getBlocType(blocs).getTexture();
         String [] text=texture.split("\\.");
         return text[0]+"-F."+text[1];
+    }
+
+    /**
+     * Affiche les informations du bloc.
+     * @param blocs la liste des types de blocs
+     */
+    @Override
+    public void afficher (BlocType [] blocs) {
+        super.afficher(blocs);
+        System.out.println("Rayon : "+rayon);
+        System.out.println("Delai : "+delai+" ms");
     }
 
 }

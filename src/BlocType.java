@@ -1,16 +1,50 @@
+
+/**
+ * Classe BlocType contient les informations sur les types de blocs.
+ */
+
 public class BlocType {
+
+    /**
+     * id contient l'index auquel il se trouve dans le tableau.
+     */
     private int id=0;
-    private String nom="default"; // le nom du bloc
-    private boolean destructible=false; // si le bloc se casse lorsque le joueur ou un bloc tombe dessus
-    private char matiere='d'; // définie la matière du bloc f:feu, g:glace, b:bois, m:metal, p:pierre
-    private int type=0; /*  0 bloc normal
-                            1 bloc mouvant
-                            2 bloc de levier
-                            3 bloc de plaque
-                        */
-    private String texture = "default.jpg"; // le chemin de la texture par défaut
+
+    /**
+     * nom contient le nom du type de bloc.
+     */
+    private String nom="default";
+
+    /**
+     * destructible contient si le bloc est destructible lors d'un impacte.
+     */
+    private boolean destructible=false;
+
+    /**
+     * matière contient la matière qui compose le bloc.
+     */
+    private char matiere='d';
+
+    /**
+     * type contient le type de bloc (0 bloc normal, 1 bloc mouvant, 2 bloc de levier, 3 bloc de plaque, ...).
+     */
+    private int type=0;
+
+    /**
+     * texture contient la texture par défaut du bloc.
+     */
+    private String texture = "default.jpg";
+
+    /**
+     * nbImages contient le nombre de textures qui définissent l'animation du bloc.
+     */
     private int nbImages=1;
 
+    /**
+     * Charge les paramètres du type de bloc à partir d'une chaine de caractères.
+     * @param exps la chaine qui contient les informations sur les paramètres du type de bloc
+     * @return boolean si le chargement des paramètres a bien été effectué
+     */
     public boolean charger (String exp) {
         String [] exps=exp.split(" ");
         if (exps.length<6 || 7<exps.length) {
@@ -35,34 +69,65 @@ public class BlocType {
         return true;
     }
 
+    /**
+     * accesseur de getId
+     * @return int l'index auquel il se trouve dans le tableau
+     */
     public int getId () {
         return id;
     }
 
+    /**
+     * accesseur de nom
+     * @return String le nom du type de bloc
+     */
     public String getNom () {
         return nom;
     }
 
+    /**
+     * accesseur de destructible
+     * @return boolean si le bloc est destructible lors d'un impacte
+     */
     public boolean getDestructible () {
         return destructible;
     }
 
+    /**
+     * accesseur de type
+     * @return int le type de bloc
+     */
     public int getType () {
         return type;
     }
 
+    /**
+     * accesseur de matière
+     * @return char la matière qui compose le bloc
+     */
     public char getMatiere () {
         return matiere;
     }
 
+    /**
+     * accesseur de texture
+     * @return String la texture par défaut du bloc
+     */
     public String getTexture () {
         return texture;
     }
 
+    /**
+     * accesseur de nbImages
+     * @return int le nombre de textures qui définissent l'animation du bloc
+     */
     public int getNbImages () {
         return nbImages;
     }
 
+    /**
+     * Affiche les informations du type de bloc.
+     */
     public void afficher () {
         System.out.println("Nom : "+nom);
         System.out.println("Type : "+type);

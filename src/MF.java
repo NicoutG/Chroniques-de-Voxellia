@@ -3,12 +3,8 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -17,9 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JLayeredPane;
-import java.awt.Insets;
 
 public class MF extends JFrame implements Observer{
     

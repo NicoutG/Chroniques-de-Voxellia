@@ -1,11 +1,33 @@
+/**
+ * Classe BlocTeleporteur permet la gestion des blocs de téléportation.
+ */
+
 public class BlocTeleporteur extends BlocActivable {
+
+    /**
+     * idTele contient l'identifiant qui permet de relier plusieurs téléporteurs entre eux.
+     */
     private int idTele=0;
+
+    /**
+     * attente contient un numéro pour savoir qu'un objet vient de se téléporter pour ne pas le téléporter en boucle 
+     * tant qu'il ne quitte pas le téléporteur (0 rien, 1 joueur, 2 bloc mouvant).
+     */
     private int attente=0;
 
+    /**
+     * Constructeur de la classe
+     * @param id l'index du type de bloc correspondant dans le tableau
+     */
     public BlocTeleporteur (int id) {
         super(id);
     }
 
+    /**
+     * Charge les paramètres du bloc à partir d'une chaine de caractères.
+     * @param params la chaine qui contient les informations sur les paramètres du bloc
+     * @return boolean si le chargement des paramètres a bien été effectué
+     */
     @Override
     public boolean setParametres (String params) {
         String [] paramList=params.split("/");
@@ -17,25 +39,62 @@ public class BlocTeleporteur extends BlocActivable {
         return true;
     }
 
+    /**
+     * accesseur de idTele
+     * @return int l'identifiant qui permet de relier plusieurs téléporteurs entre eux
+     */
     public int getIdTele () {
         return idTele;
     }
 
-    public void setAttente (int a) {
+    /**
+     * mutateur de attente
+     * @param a un numéro pour savoir qu'un objet vient de se téléporter
+     */
+    private void setAttente (int a) {
         attente=a;
     }
 
+    /**
+     * Active le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     public void activation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(true);
     }
 
+    /**
+     * Désactive le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     public void desactivation (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         setEtat(false);
     }
 
+    /**
+     * Téléporte le joueur à un téléporteur.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du téléporteur d'arrivé dans le terrain
+     * @param y la position y du téléporteur d'arrivé dans le terrain
+     * @param z la position z du téléporteur d'arrivé dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     private boolean teleporterJoueur (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         int [][] val ={{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z},{x,y,z-1}};
         int xi,yi,zi;
+
+        // cherche une case libre autour du téléporteur d'arrivé
         for (int i=0;i<6;i++) {
             xi=val[i][0];
             yi=val[i][1];
@@ -52,9 +111,23 @@ public class BlocTeleporteur extends BlocActivable {
         return false;
     }
 
+    /**
+     * Téléporte le joueur à un téléporteur.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param xb la position x du bloc à téléporter dans le terrain
+     * @param yb la position y du bloc à téléporter dans le terrain
+     * @param zb la position z du bloc à téléporter dans le terrain
+     * @param x la position x du téléporteur d'arrivé dans le terrain
+     * @param y la position y du téléporteur d'arrivé dans le terrain
+     * @param z la position z du téléporteur d'arrivé dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     private boolean teleporterBloc (Bloc [][][] terrain, BlocType [] blocs, int xb, int yb, int zb, int x, int y, int z, Joueur joueur) {
         int [][] val ={{x,y,z+1},{x,y-1,z},{x,y+1,z},{x-1,y,z},{x+1,y,z},{x,y,z-1}};
         int xi,yi,zi;
+
+        // cherche une case libre autour du téléporteur d'arrivé
         for (int i=0;i<6;i++) {
             xi=val[i][0];
             yi=val[i][1];
@@ -72,6 +145,16 @@ public class BlocTeleporteur extends BlocActivable {
         return false;
     }
 
+    /**
+     * Renvoie 0 si il n'y a rien à téléporter autour, 1 si il y a le joueur autour et 2 si il y a un bloc mouvant autour.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du téléporteur dans le terrain
+     * @param y la position y du téléporteur dans le terrain
+     * @param z la position z du téléporteur dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     * @return int 0 si il n'y a rien à téléporter autour, 1 si il y a le joueur autour et 2 si il y a un bloc mouvant autour
+     */
     private int verifAutour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         int xj=joueur.getX();
         int yj=joueur.getY();
@@ -92,6 +175,15 @@ public class BlocTeleporteur extends BlocActivable {
         return 0;
     }
 
+    /**
+     * Met à jour le bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         super.miseAjour(terrain,blocs,x,y,z,joueur);
@@ -162,6 +254,16 @@ public class BlocTeleporteur extends BlocActivable {
         }
     }
 
+    /**
+     * Renvoie la texture actuelle du bloc.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     * @return String la texture actuelle du bloc
+     */
     @Override
     public String getTexture (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         if (getEtat()) {
@@ -172,6 +274,16 @@ public class BlocTeleporteur extends BlocActivable {
         String texture=getBlocType(blocs).getTexture();
         String [] text=texture.split("\\.");
         return text[0]+"-F."+text[1];
+    }
+
+    /**
+     * Affiche les informations du bloc.
+     * @param blocs la liste des types de blocs
+     */
+    @Override
+    public void afficher (BlocType [] blocs) {
+        super.afficher(blocs);
+        System.out.println("Id teleporteur : "+idTele);
     }
 
 }

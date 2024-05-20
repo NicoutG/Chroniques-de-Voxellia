@@ -42,47 +42,98 @@ public class Joueur {
     private boolean mort;
 
     /**
-     * tempsMaj contient l'instant de la dernière mise à jour du joueur.
+     * tempsMaj contient l'instant de la dernière mise à jour de la position du joueur.
      */
     private long tempsMaj=System.currentTimeMillis();
 
+    /**
+     * tempsImage contient l'instant du dernier changement de texture du joueur.
+     */
     private long tempsImage=0;
+
+    /**
+     * numImage contient le numéro actuel de la texture du joueur.
+     */
     private int numImage;
 
+    /**
+     * accesseur de x
+     * @return int la position x du joueur
+     */
+    public int getX () {
+        return x;
+    }
+
+    /**
+     * accesseur de y
+     * @return int la position y du joueur
+     */
+    public int getY () {
+        return y;
+    }
+
+    /**
+     * accesseur de z
+     * @return int la position z du joueur
+     */
+    public int getZ () {
+        return z;
+    }
+
+    /**
+     * mutateur de x, y et z
+     * @param posx la position x du joueur
+     * @param posy la position y du joueur
+     * @param posz la position z du joueur
+     */
     public void setPos(int posx, int posy, int posz) {
         x=posx;
         y=posy;
         z=posz;
     }
 
-    public int getX () {
-        return x;
-    }
-
-    public int getY () {
-        return y;
-    }
-
-    public int getZ () {
-        return z;
-    }
-
+    /**
+     * accesseur de victoire
+     * @return boolean si le joueur a réussi le niveau
+     */
     public boolean getVictoire () {
         return victoire;
     }
 
+    /**
+     * mutateur de victoire
+     * @param v si le joueur a réussi le niveau
+     */
     public void setVictoire (boolean v) {
         victoire=v;
     }
 
+    /**
+     * accesseur de mort
+     * @return boolean si le joueur est mort
+     */
     public boolean getMort () {
         return mort;
     }
 
+    /**
+     * mutateur de mort
+     * @return m si le joueur est mort
+     */
     public void setMort (boolean m) {
         mort=m;
     }
 
+    /**
+     * Envoie une requête de déplacement au joueur.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     * @param depx le déplacement x du joueur
+     * @param depy le déplacement y du joueur
+     * @param depz le déplacement z du joueur
+     * @param num identifie l'objet qui appelle la fonction
+     * @return boolean si le joueur a pu effectuer le déplacement
+     */
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int depx, int depy, int depz, int num) {
         int x2=x+depx;
         int y2=y+depy;
@@ -105,6 +156,11 @@ public class Joueur {
         return false;
     }
 
+    /**
+     * Met à jour le joueur.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     */
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs) {
 
         // maj de la position toute les 100 ms
@@ -131,6 +187,13 @@ public class Joueur {
         }
     }
 
+    /**
+     * Execute l'action du joueur.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     * @param action contient l'action à réaliser
+     * @return boolean si l'action a bien été réalisée
+     */
     public boolean actionJoueur (Bloc [][][] terrain, BlocType [] blocs, String action) {
 
         // si le joueur a les pieds au sol et qu'il ne glisse pas sur de la glace
@@ -144,15 +207,25 @@ public class Joueur {
         return false;
     }
 
+    /**
+     * Renvoie la texture actuelle du joueur.
+     * @param terrain le terrain sur lequel se déplace le joueur
+     * @param blocs la liste des types de blocs
+     * @return String la texture actuelle du joueur
+     */
     public String getTexture (Bloc [][][] terrain, BlocType [] blocs) {
         int num=getNumImage();
         return "player-"+num+".png";
     }
 
+    /**
+     * Renvoie et met à jour le numéro d'image.
+     * @return int le numéro d'image du joueur
+     */
     private int getNumImage () {
         int nbImages=4;
-        if (nbImages==1)
-            return -1;
+
+        // si il faut changer d'image
         if (System.currentTimeMillis()-tempsImage>=100) {
             tempsImage=System.currentTimeMillis();
             numImage=(numImage+1)%nbImages;

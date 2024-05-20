@@ -1,13 +1,35 @@
 import java.util.Random;
 import java.util.Vector;
 
+/**
+ * Classe BlocEnnemi permet la gestion des ennemis.
+ */
+
 public class BlocEnnemi extends BlocMouvant {
+
+    /**
+     * tempsDep contient l'instant du dernier déplacement de l'ennemi.
+     */
     protected long tempsDep=System.currentTimeMillis();
 
+    /**
+     * Constructeur de la classe
+     * @param id l'index du type de bloc correspondant dans le tableau
+     */
     public BlocEnnemi (int id) {
         super(id);
     }
 
+    /**
+     * Renvoi le tableau qui contient les distances les plus courtes de chaque case par rapport au joueur
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     * @return int [][] le tableau qui contient les distances les plus courtes de chaque case par rapport au joueur
+     */
     private int [][] createChemin (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         int [][] chemin=new int [terrain.length][terrain[0].length];
         for (int i=0;i<chemin.length;i++)
@@ -50,6 +72,16 @@ public class BlocEnnemi extends BlocMouvant {
         return chemin;
     }
 
+    /**
+     * Renvoi le numéro du prochain déplacement de l'ennemi pour se rapprocher du joueur
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     * @return int le numéro du prochain déplacement de l'ennemi pour se rapprocher du joueur
+     */
     private int depSuivant (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
         int [][] chemin=createChemin(terrain,blocs,x,y,z,joueur);
         int [][] pos={{x-1,y},{x+1,y},{x,y-1},{x,y+1}};
@@ -78,6 +110,20 @@ public class BlocEnnemi extends BlocMouvant {
         return dep.get(rand.nextInt(dep.size()));
     }
 
+    /**
+     * Envoie une requête de déplacement au bloc.
+     * @param terrain le terrain dans lequel se trouve le bloc
+     * @param blocs la liste des types de blocs
+     * @param x la position x du bloc dans le terrain
+     * @param y la position y du bloc dans le terrain
+     * @param z la position z du bloc dans le terrain
+     * @param depx le déplacement x du bloc
+     * @param depy le déplacement y du bloc
+     * @param depz le déplacement z du bloc
+     * @param joueur le joueur qui joue sur le niveau
+     * @param num identifie l'objet qui appelle la fonction
+     * @return boolean si le bloc a pu effectuer le déplacement
+     */
     @Override
     public boolean deplacer (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, int depx, int depy, int depz, Joueur joueur, int num) {
         if (num==0)
@@ -85,6 +131,15 @@ public class BlocEnnemi extends BlocMouvant {
         return super.deplacer(terrain, blocs, x, y, z, depx, depy, depz, joueur, num);    
     }
 
+    /**
+     * Met à jour l'ennemi.
+     * @param terrain le terrain dans lequel se trouve l'ennemi
+     * @param blocs la liste des types de blocs
+     * @param x la position x de l'ennemi dans le terrain
+     * @param y la position y de l'ennemi dans le terrain
+     * @param z la position z de l'ennemi dans le terrain
+     * @param joueur le joueur qui joue sur le niveau
+     */
     @Override
     public void miseAjour (Bloc [][][] terrain, BlocType [] blocs, int x, int y, int z, Joueur joueur) {
 
