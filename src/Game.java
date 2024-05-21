@@ -15,8 +15,8 @@ import java.awt.Image;
 
 
 public class Game {
-    String[][] niveaux = null;
-    Niveau niveau = new Niveau();
+    private String[][] niveaux = null;
+    private Niveau niveau = new Niveau();
 
     public void start() {
         chargerNiveaux("./data/texte/niveaux.txt");
