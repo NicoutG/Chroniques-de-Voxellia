@@ -125,6 +125,7 @@ public class MF extends JFrame implements Observer{
                     }
         }
         else {
+            niveau.validerNiveau();
             this.dispose();
         }
     }

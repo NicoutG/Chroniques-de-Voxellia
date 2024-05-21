@@ -419,5 +419,37 @@ public class Niveau extends Observable {
         }
         return "default";
     }
+
+    public void validerNiveau() {
+        
+        try {
+            String exp=new String(Files.readAllBytes(Paths.get("./data/texte/niveaux.txt")));
+            String [] exps=exp.split("\r\n");
+            if (exps.length<1)
+                return;
+            
+            String nivFile = nomNiveau.split("/")[nomNiveau.split("/").length-1];
+                        
+            for (int i=0;i<exps.length;i++) {
+                String [] line=exps[i].split(";");
+                if (line[1].equals(nivFile)) {
+                    line[3]="1";
+                    exps[i]=String.join(";",line);
+                    System.out.println("Niveau "+line[1]+" validé");
+                    break;
+                }
+            }
+
+            try {
+                Files.write(Paths.get("./data/texte/niveaux.txt"),String.join("\r\n",exps).getBytes());
+            }
+            catch (IOException e) {
+                return;
+            }
+        }
+        catch (IOException e) {
+            return;
+        }
+    }
     
 }

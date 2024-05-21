@@ -47,11 +47,19 @@ public class Game {
             levelPanel.add(button);
 
             // Add image to the level panel
+            if (niveaux[i][3].equals("1")) {
+                ImageIcon checkIcon = new ImageIcon("./data/img/check-icon.png");
+                checkIcon.setImage(checkIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                JLabel checkLabel = new JLabel(checkIcon);
+                checkLabel.setBounds(10, 50, 50, 50); // Set position and size of the image
+                checkLabel.setPreferredSize(new Dimension(50, 50)); // Set the preferred size of the image label
+                levelPanel.add(checkLabel);
+            }
+
             ImageIcon imageIcon = new ImageIcon("./data/img/niveaux/" + niveaux[i][2]);
             imageIcon.setImage(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
             JLabel imageLabel = new JLabel(imageIcon);
             imageLabel.setBounds(10, 50, 200, 200); // Set position and size of the image
-
             imageLabel.setPreferredSize(new Dimension(200, 200)); // Set the preferred size of the image label
             levelPanel.add(imageLabel);
 
@@ -93,13 +101,14 @@ public class Game {
                 while (exps[i].contains("  "))
                     exps[i]=exps[i].replace("  "," ");
             
-            niveaux = new String[exps.length][3];
+            niveaux = new String[exps.length][4];
             // chargement des niveaux
             for (int i=0;i<exps.length ;i++) {
                 String [] ligne=exps[i].split(";");
                 niveaux[i][0] = ligne[0];
                 niveaux[i][1] = ligne[1];
                 niveaux[i][2] = ligne[2];
+                niveaux[i][3] = ligne[3];
             }
             return true;
         }

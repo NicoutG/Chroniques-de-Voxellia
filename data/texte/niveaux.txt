@@ -1,6 +1,6 @@
 Frozen Harbour;level1.txt;level1.jpg;0
-Locked Temple;level3.txt;level3.jpg;0
-Cross the River;level2.txt;level2.jpg;0
+Locked Temple;level3.txt;level3.jpg;1
+Cross the River;level2.txt;level2.jpg;1
 Explosive Escape;level4.txt;level4.jpg;0
 Hidden House;level5.txt;level5.jpg;0
 Castle's Library;level6.txt;level6.jpg;0
@@ -9,5 +9,5 @@ Puzzle;level8.txt;level8.jpg;0
 Magician;level9.txt;level9.jpg;0
 Maze Runner;level10.txt;level10.jpg;0
 Waterfalls;level11.txt;level11.jpg;0
-Sky and earth;level12.txt;level12.jpg;0
+Sky and earth;level12.txt;level12.jpg;1
 Haunted Temple;level13.txt;level13.jpg;0
