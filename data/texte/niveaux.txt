@@ -9,5 +9,6 @@ Puzzle;level8.txt;level8.jpg;0
 Magician;level9.txt;level9.jpg;0
 Maze Runner;level10.txt;level10.jpg;0
 Waterfalls;level11.txt;level11.jpg;0
-Sky and earth;level12.txt;level12.jpg;1
+Sky and Earth;level12.txt;level12.jpg;0
 Haunted Temple;level13.txt;level13.jpg;0
+Death Valley;level14.txt;level14.jpg;0
