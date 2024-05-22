@@ -44,7 +44,7 @@ Les blocs de téléportation
 
 3 paramètres
 
-    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
+    Paramètre 1 : Etat par défaut du bloc (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : Id de téléportation (pour repérer le téléporteur de destination)
 
@@ -54,7 +54,7 @@ Les blocs de piston
 
 3 paramètres
 
-    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
+    Paramètre 1 : Etat par défaut du bloc (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : L'orientation du piston
                     - 0 : haut
@@ -90,7 +90,7 @@ Les blocs explosifs
 
 3 à 4 paramètres
 
-    Paramètre 1 : Etat par défaut du téléporteur (t = activé, f = désactivé)
+    Paramètre 1 : Etat par défaut du bloc (t = activé, f = désactivé)
     Paramètre 2 : Id de groupe (pour son activation et sa désactivation)
     Paramètre 3 : rayon d'explosion (0 explose seulement le bloc)
     Paramètre 4 : Délai avant l'explosion en ms (0 par défaut)

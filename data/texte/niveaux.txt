@@ -12,3 +12,4 @@ Waterfalls;level11.txt;level11.jpg;0
 Sky and Earth;level12.txt;level12.jpg;0
 Haunted Temple;level13.txt;level13.jpg;0
 Death Valley;level14.txt;level14.jpg;0
+Final Arena;level15.txt;level15.jpg;0
