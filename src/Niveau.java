@@ -326,11 +326,8 @@ public class Niveau extends Observable {
         for (int z=0;z<taillez;z++)
             for (int y=0;y<tailley;y++)
                 for (int x=0;x<taillex;x++) 
-                    if (terrain[x][y][z]!=null) {
+                    if (terrain[x][y][z]!=null)
                         terrain[x][y][z].miseAjour(terrain, blocs, x, y, z, joueur);
-                        if (x==joueur.getX() && y==joueur.getY() && z==joueur.getZ())
-                            joueur.setMort(true);
-                    }
         
         // on recharge le niveau lorsque le joueur meurt
         if (getMort())
